@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import NavigationBar from './components/NavigationBar';
+import Home from './pages/Home';
+import Paveikslai from './pages/Paveikslai';
+import Fotografija from './pages/Fotografija';
+import Skulpturos from './pages/Skulpturos';
+import Keramika from './pages/Keramika';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <NavigationBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/paveikslai" element={<Paveikslai />} />
+        <Route path="/fotografija" element={<Fotografija />} />
+        <Route path="/skulpturos" element={<Skulpturos />} />
+        <Route path="/keramika" element={<Keramika />} />
+      </Routes>
+      </div>
   );
 }
 
 export default App;
+
