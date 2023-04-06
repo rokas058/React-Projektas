@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import PaginationBar from '../components/PaginationBar';
-import Card from '../components/Card';
-import './Paveikslai.css';
-import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import PaginationBar from "../components/PaginationBar";
+import PaveikslaiCardData from "./PaveikslaiCardData";
+import Card from "../components/Card";
+import "./Paveikslai.css";
+import paveikslaiCover from "../pages/images/paveikslai-cover.jpg";
+
 
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
@@ -12,7 +15,7 @@ const Paveikslai = () => {
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
-      const res = await axios.get('http://localhost:8080/paveikslai');
+      const res = await axios.get("http://localhost:8080/paveikslai");
       setPaveikslai(res.data);
     };
     fetchPaveikslai();
@@ -20,7 +23,10 @@ const Paveikslai = () => {
 
   const indexOfLastPaveikslas = currentPage * paveikslaiPerPage;
   const indexOfFirstPaveikslas = indexOfLastPaveikslas - paveikslaiPerPage;
-  const currentPaveikslai = paveikslai.slice(indexOfFirstPaveikslas, indexOfLastPaveikslas);
+  const currentPaveikslai = paveikslai.slice(
+    indexOfFirstPaveikslas,
+    indexOfLastPaveikslas
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -42,7 +48,7 @@ const Paveikslai = () => {
       </div>
 
       <div className="paveikslai-container">
-        {currentPaveikslai.map((paveikslas, index) => (
+
           <div key={index} className={`card-container col-md-${12 / columns}`}>
             <Card
               pavadinimas={paveikslas.pavadinimas}
@@ -57,6 +63,7 @@ const Paveikslai = () => {
         ))}
       </div>
 
+
       {paveikslai.length > paveikslaiPerPage && (
         <PaginationBar
           paveikslaiPerPage={paveikslaiPerPage}
@@ -65,6 +72,7 @@ const Paveikslai = () => {
           currentPage={currentPage}
         />
       )}
+
     </>
   );
 };
