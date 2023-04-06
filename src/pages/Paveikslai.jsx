@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PaginationBar from '../components/PaginationBar';
-import PaveikslaiCardData from './PaveikslaiCardData';
 import Card from '../components/Card';
 import './Paveikslai.css';
 import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
@@ -9,7 +8,7 @@ import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paveikslaiPerPage] = useState(8);
+  const [paveikslaiPerPage] = useState(4);
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
@@ -35,17 +34,15 @@ const Paveikslai = () => {
     return 1;
   }
 
-
   return (
-<>
-    <div className="cover">
+    <>
+      <div className="cover">
         <img src={paveikslaiCover} alt="Paveikslai" />
         <h1>Paveikslai</h1>
       </div>
 
-        <div className="paveikslai-container">
-     
-        {paveikslai.map((paveikslas, index) => (
+      <div className="paveikslai-container">
+        {currentPaveikslai.map((paveikslas, index) => (
           <div key={index} className={`card-container col-md-${12 / columns}`}>
             <Card
               pavadinimas={paveikslas.pavadinimas}
@@ -56,16 +53,18 @@ const Paveikslai = () => {
               kaina={paveikslas.kaina}
               aprasymas={paveikslas.aprasymas}
             />
-            </div>
+          </div>
         ))}
       </div>
-      <PaginationBar
-        paveikslaiPerPage={paveikslaiPerPage}
-        totalPaveikslai={paveikslai.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
 
+      {paveikslai.length > paveikslaiPerPage && (
+        <PaginationBar
+          paveikslaiPerPage={paveikslaiPerPage}
+          totalPaveikslai={paveikslai.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      )}
     </>
   );
 };

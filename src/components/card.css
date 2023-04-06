@@ -69,10 +69,6 @@
     color: #717476;
   }
 
-  @media (max-width: 768px) {
-    .card {
-      margin-bottom: 20px;
-    }
-  }
+
   
   
