@@ -1,41 +1,71 @@
-import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import PaginationBar from '../components/PaginationBar';
 import PaveikslaiCardData from './PaveikslaiCardData';
 import Card from '../components/Card';
-import PaginationBar from '../components/PaginationBar';
-import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
 import './Paveikslai.css';
+import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
 
 const Paveikslai = () => {
+  const [paveikslai, setPaveikslai] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage] = useState(18);
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = PaveikslaiCardData.slice(indexOfFirstCard, indexOfLastCard);
+  const [paveikslaiPerPage] = useState(8);
+
+  useEffect(() => {
+    const fetchPaveikslai = async () => {
+      const res = await axios.get('http://localhost:8080/paveikslai');
+      setPaveikslai(res.data);
+    };
+    fetchPaveikslai();
+  }, []);
+
+  const indexOfLastPaveikslas = currentPage * paveikslaiPerPage;
+  const indexOfFirstPaveikslas = indexOfLastPaveikslas - paveikslaiPerPage;
+  const currentPaveikslai = paveikslai.slice(indexOfFirstPaveikslas, indexOfLastPaveikslas);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const columns = getColumns();
+
+  function getColumns() {
+    const width = window.innerWidth;
+    if (width > 1200) return 4;
+    if (width > 992) return 3;
+    if (width > 768) return 2;
+    return 1;
+  }
+
+
   return (
-    <>
-      <div className="cover">
+<>
+    <div className="cover">
         <img src={paveikslaiCover} alt="Paveikslai" />
-        <h1>PAVEIKSLAI</h1>
+        <h1>Paveikslai</h1>
       </div>
-      <Container>
-        <Row xs={1} sm={2} md={3} lg={4}>
-          {currentCards.map((card) => (
-            <Col key={card.id}>
-              <Card {...card} />
-            </Col>
-          ))}
-        </Row>
-      </Container>
+
+        <div className="paveikslai-container">
+     
+        {paveikslai.map((paveikslas, index) => (
+          <div key={index} className={`card-container col-md-${12 / columns}`}>
+            <Card
+              pavadinimas={paveikslas.pavadinimas}
+              photo={paveikslas.photo}
+              kategorija={paveikslas.kategorija}
+              ismatavimai={paveikslas.ismatavimai}
+              kurejas={paveikslas.kurejas}
+              kaina={paveikslas.kaina}
+              aprasymas={paveikslas.aprasymas}
+            />
+            </div>
+        ))}
+      </div>
       <PaginationBar
-        cardsPerPage={cardsPerPage}
-        totalCards={PaveikslaiCardData.length}
+        paveikslaiPerPage={paveikslaiPerPage}
+        totalPaveikslai={paveikslai.length}
         paginate={paginate}
         currentPage={currentPage}
       />
+
     </>
   );
 };
