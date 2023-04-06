@@ -16,9 +16,17 @@ const Test = () => {
           </button>
         </li>
 
+        <li>
+          <button>
+            <Link to="/admin/product/create_product" className="nav-link">
+              Create
+            </Link>
+          </button>
+        </li>
+
         <tr>
           <Button>
-            <Link to="/admin" className="nav-link">
+            <Link to="/admin/product" className="nav-link">
               Back
             </Link>
           </Button>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import PaginationBar from '../components/PaginationBar';
-import PaveikslaiCardData from './PaveikslaiCardData';
-import Card from '../components/Card';
-import './Paveikslai.css';
-import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import PaginationBar from "../components/PaginationBar";
+import PaveikslaiCardData from "./PaveikslaiCardData";
+import Card from "../components/Card";
+import "./Paveikslai.css";
+import paveikslaiCover from "../pages/images/paveikslai-cover.jpg";
 
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
@@ -13,7 +13,7 @@ const Paveikslai = () => {
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
-      const res = await axios.get('http://localhost:8080/paveikslai');
+      const res = await axios.get("http://localhost:8080/paveikslai");
       setPaveikslai(res.data);
     };
     fetchPaveikslai();
@@ -21,7 +21,10 @@ const Paveikslai = () => {
 
   const indexOfLastPaveikslas = currentPage * paveikslaiPerPage;
   const indexOfFirstPaveikslas = indexOfLastPaveikslas - paveikslaiPerPage;
-  const currentPaveikslai = paveikslai.slice(indexOfFirstPaveikslas, indexOfLastPaveikslas);
+  const currentPaveikslai = paveikslai.slice(
+    indexOfFirstPaveikslas,
+    indexOfLastPaveikslas
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -35,16 +38,14 @@ const Paveikslai = () => {
     return 1;
   }
 
-
   return (
-<>
-    <div className="cover">
+    <>
+      <div className="cover">
         <img src={paveikslaiCover} alt="Paveikslai" />
         <h1>Paveikslai</h1>
       </div>
 
-        <div className="paveikslai-container">
-     
+      <div className="paveikslai-container">
         {paveikslai.map((paveikslas, index) => (
           <div key={index} className={`card-container col-md-${12 / columns}`}>
             <Card
@@ -56,7 +57,7 @@ const Paveikslai = () => {
               kaina={paveikslas.kaina}
               aprasymas={paveikslas.aprasymas}
             />
-            </div>
+          </div>
         ))}
       </div>
       <PaginationBar
@@ -65,7 +66,6 @@ const Paveikslai = () => {
         paginate={paginate}
         currentPage={currentPage}
       />
-
     </>
   );
 };
