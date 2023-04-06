@@ -1,17 +1,14 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PaginationBar from "../components/PaginationBar";
-import PaveikslaiCardData from "./PaveikslaiCardData";
 import Card from "../components/Card";
 import "./Paveikslai.css";
 import paveikslaiCover from "../pages/images/paveikslai-cover.jpg";
 
-
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paveikslaiPerPage] = useState(4);
+  const [paveikslaiPerPage] = useState(1);
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
@@ -48,7 +45,7 @@ const Paveikslai = () => {
       </div>
 
       <div className="paveikslai-container">
-
+        {paveikslai.map((paveikslas, index) => (
           <div key={index} className={`card-container col-md-${12 / columns}`}>
             <Card
               pavadinimas={paveikslas.pavadinimas}
@@ -63,7 +60,6 @@ const Paveikslai = () => {
         ))}
       </div>
 
-
       {paveikslai.length > paveikslaiPerPage && (
         <PaginationBar
           paveikslaiPerPage={paveikslaiPerPage}
@@ -72,7 +68,6 @@ const Paveikslai = () => {
           currentPage={currentPage}
         />
       )}
-
     </>
   );
 };
