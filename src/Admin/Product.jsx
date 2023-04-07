@@ -34,7 +34,7 @@ const columns = [
     accessor: (product) => (
       <img
         src={`data:image/jpeg;base64,${product.photo}`}
-        alt="Product photo"
+        alt="Product"
         style={{ height: "50px" }}
       />
     ),

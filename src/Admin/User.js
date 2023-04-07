@@ -1,73 +1,89 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useTable } from "react-table";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
-const User = () => {
-  const styles = {
-    backgroundColor: "lightblue",
-    padding: "20px",
-    textAlign: "center",
-    fontFamily: "Arial",
-    fontSize: "24px",
-  };
+const columns = [
+  {
+    Header: "ID",
+    accessor: "id",
+  },
+  {
+    Header: "Vardas",
+    accessor: "firstName",
+  },
+  {
+    Header: "Pavardė",
+    accessor: "lastName",
+  },
+  {
+    Header: "El. paštas",
+    accessor: "email",
+  },
+];
+
+export default function Product() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/admin/user")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const tableInstance = useTable({
+    columns,
+    data,
+  });
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    tableInstance;
 
   return (
-    <div>
-      <p>
-        <tr>
-          Siame puslapyje turi buti Useriu sarasas, su funkciniais mygtukais
-          redaguoti ir istrinti.
-        </tr>
-        <tr>Useris atkeliauja is registracijos peidzo:</tr>
-        <li>1. vardas</li>
-        <li>2. pavarde </li>
-        <li>3. el. pastas</li>
-      </p>
-      <ul>
-        <tr>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
           <Button>
             <Link to="/admin" className="nav-link">
               Back
             </Link>
           </Button>
-        </tr>
-      </ul>
-      <h1>User peidzas</h1>
-      <p>Cia userio puslapis.</p>
-      <nav style={styles} className="table">
-        <thead>
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-          <tr>
-            <td>July1</td>
-            <td>Dooley1</td>
-            <td>july1@example.com</td>
-          </tr>
-        </tbody>
-      </nav>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12"></div>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
-
-export default User;
+}
