@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import PaginationBar from "../components/PaginationBar";
-import Card from "../components/Card";
-import "./Paveikslai.css";
-import paveikslaiCover from "../pages/images/paveikslai-cover.jpg";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import PaginationBar from '../components/PaginationBar';
+import Card from '../components/Card';
+import './Paveikslai.css';
+import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
 
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paveikslaiPerPage] = useState(1);
+  const [paveikslaiPerPage] = useState(4);
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
-      const res = await axios.get("http://localhost:8080/paveikslai");
+      const res = await axios.get('http://localhost:8080/paveikslai');
       setPaveikslai(res.data);
     };
     fetchPaveikslai();
@@ -20,10 +20,7 @@ const Paveikslai = () => {
 
   const indexOfLastPaveikslas = currentPage * paveikslaiPerPage;
   const indexOfFirstPaveikslas = indexOfLastPaveikslas - paveikslaiPerPage;
-  const currentPaveikslai = paveikslai.slice(
-    indexOfFirstPaveikslas,
-    indexOfLastPaveikslas
-  );
+  const currentPaveikslai = paveikslai.slice(indexOfFirstPaveikslas, indexOfLastPaveikslas);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -45,7 +42,7 @@ const Paveikslai = () => {
       </div>
 
       <div className="paveikslai-container">
-        {paveikslai.map((paveikslas, index) => (
+        {currentPaveikslai.map((paveikslas, index) => (
           <div key={index} className={`card-container col-md-${12 / columns}`}>
             <Card
               pavadinimas={paveikslas.pavadinimas}
