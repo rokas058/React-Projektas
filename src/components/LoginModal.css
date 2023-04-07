@@ -1,0 +1,88 @@
+
+
+  .modal-header {
+    background-color: #eee;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .modal-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .modal-body {
+    padding: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .form-control {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem;
+    background-color: #fff;
+    font-size: 1rem;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-control:focus {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+
+  .password-toggle-btn {
+    translate: 390px -40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .password-toggle-icon {
+    color: #999;
+  }
+
+  .password-toggle-icon:hover {
+    color: #333;
+  }
+
+  .btn-primary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background-color: #333;
+    border-color: #333;
+  }
+
+  .btn-link {
+    color: #6c757d;
+    font-weight: 600;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  .btn-link:hover {
+    color: #333;
+    text-decoration: none;
+  }
+
