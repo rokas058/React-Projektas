@@ -1,0 +1,27 @@
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .nav-links {
+    display: flex;
+  }
+  
+  .nav-links > .nav-link {
+    margin-right: 15px;
+  }
+  
+  .nav-links > .nav-link:last-child {
+    margin-right: 0;
+  }
+  
+  .login-btn {
+    margin-right: 10px;
+  }
+  
+  .shopping-cart-btn {
+    margin-left: 10px;
+  }
+  

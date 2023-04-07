@@ -1,15 +1,23 @@
 import React from 'react';
 import { useState } from 'react';
-import { Navbar, Nav, Button, Modal, Form } from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
+
 
 function NavigationBar() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const handleShowLoginModal = () => setShowLoginModal(true);
-  const handleCloseLoginModal = () => setShowLoginModal(false);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleShowLogin = () => {
+    setShowLogin(true);
+  }
+
+  const handleHideLogin = () => {
+    setShowLogin(false);
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -34,43 +42,18 @@ function NavigationBar() {
         </Nav>
         <Nav className="ml-auto">
           
-          <Button
-            variant="primary"
-            onClick={handleShowLoginModal}
-            className="login-button"
-          >
-            Log in
-          </Button>
+        <Button className='login-btn' variant="primary" onClick={handleShowLogin}>Log In</Button>
 
-          <Button
-            variant="light"
-            className="shopping-cart-button mr-2"
+          <Button variant="light" className="shopping-cart-btn"
           >
             <FontAwesomeIcon icon={faShoppingCart} />
           </Button>
 
         </Nav>
       </Navbar.Collapse>
-      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Log in</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Log in
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+
+      <LoginModal show={showLogin} onHide={handleHideLogin} />
+
     </Navbar>
   );
 }
