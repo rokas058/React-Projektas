@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PaginationBar from '../components/PaginationBar';
 import Card from '../components/Card';
-import './Paveikslai.css';
+import './STYLES/paveikslai.css';
 import paveikslaiCover from '../pages/images/paveikslai-cover.jpg';
+import { Link } from 'react-router-dom';
 
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paveikslaiPerPage] = useState(4);
+  const [paveikslaiPerPage] = useState(6);
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
@@ -38,21 +39,23 @@ const Paveikslai = () => {
     <>
       <div className="cover">
         <img src={paveikslaiCover} alt="Paveikslai" />
-        <h1>Paveikslai</h1>
+        <h1>PAVEIKSLAI</h1>
       </div>
 
       <div className="paveikslai-container">
-        {currentPaveikslai.map((paveikslas, index) => (
-          <div key={index} className={`card-container col-md-${12 / columns}`}>
-            <Card
-              pavadinimas={paveikslas.pavadinimas}
-              photo={paveikslas.photo}
-              kategorija={paveikslas.kategorija}
-              ismatavimai={paveikslas.ismatavimai}
-              kurejas={paveikslas.kurejas}
-              kaina={paveikslas.kaina}
-              aprasymas={paveikslas.aprasymas}
-            />
+        {currentPaveikslai.map((paveikslas) => (
+          <div key={paveikslas.id} className={`card-container col-md-${12 / columns}`}>
+            <Link to={`/${paveikslas.id}`} className="link">
+              <Card
+                pavadinimas={paveikslas.pavadinimas}
+                photo={paveikslas.photo}
+                kategorija={paveikslas.kategorija}
+                ismatavimai={paveikslas.ismatavimai}
+                kurejas={paveikslas.kurejas}
+                kaina={paveikslas.kaina}
+                aprasymas={paveikslas.aprasymas}
+              />
+            </Link>
           </div>
         ))}
       </div>
