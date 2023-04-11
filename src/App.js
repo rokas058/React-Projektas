@@ -6,7 +6,7 @@ import Paveikslai from "./pages/Paveikslai";
 import Fotografija from "./pages/Fotografija";
 import Skulpturos from "./pages/Skulpturos";
 import Keramika from "./pages/Keramika";
-
+import Paveikslas from './pages/Paveikslas';
 import Admin from "./Admin/Admin";
 import User from "./Admin/User";
 import Product from "./Admin/Product";
@@ -23,6 +23,7 @@ function App() {
         <Route path="/fotografija" element={<Fotografija />} />
         <Route path="/skulpturos" element={<Skulpturos />} />
         <Route path="/keramika" element={<Keramika />} />
+        <Route exact path="/:id" element={<Paveikslas />} />
 
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/user" element={<User />} />
