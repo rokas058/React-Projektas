@@ -6,12 +6,14 @@ import Paveikslai from "./pages/Paveikslai";
 import Fotografija from "./pages/Fotografija";
 import Skulpturos from "./pages/Skulpturos";
 import Keramika from "./pages/Keramika";
-import Paveikslas from './pages/Paveikslas';
+import Paveikslas from "./pages/Paveikslas";
 import Admin from "./Admin/Admin";
 import User from "./Admin/User";
 import Product from "./Admin/Product";
-import Create_product from "./Admin/Create_product";
+import ProductTable from "./Admin/ProductTable";
 import Test from "./Admin/Test";
+import ProductForm from "./Admin/ProductForm";
+// import { Container, Box } from "@mui/material";
 
 function App() {
   return (
@@ -28,11 +30,18 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/product" element={<Product />} />
-        <Route
-          path="/admin/product/create_product"
-          element={<Create_product />}
-        />
+        <Route path="/admin/product/ProductTable" element={<ProductTable />} />
         <Route path="/admin/test" element={<Test />} />
+        <Route path="/admin/product/ProductForm" element={<ProductForm />} />
+
+        {/* <Container maxWidth="md">
+          <Box my={4}>
+            <ProductForm />
+          </Box>
+          <Box my={4}>
+            <ProductTable />
+          </Box>
+        </Container> */}
       </Routes>
     </div>
   );

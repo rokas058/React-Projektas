@@ -68,7 +68,12 @@ export default function Product() {
       <div className="row">
         <div className="col-md-12">
           <Button>
-            <Link to="/admin/product/create_product" className="nav-link">
+            <Link to="/admin/product/ProductTable" className="nav-link">
+              Create
+            </Link>
+          </Button>
+          <Button>
+            <Link to="/admin/product/ProductForm" className="nav-link">
               Create
             </Link>
           </Button>
