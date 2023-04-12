@@ -6,7 +6,10 @@ import Paveikslai from "./pages/Paveikslai";
 import Fotografija from "./pages/Fotografija";
 import Skulpturos from "./pages/Skulpturos";
 import Keramika from "./pages/Keramika";
+
 import Paveikslas from "./pages/Paveikslas";
+import Footer from "./components/Footer";
+
 import Admin from "./Admin/Admin";
 import User from "./Admin/User";
 import Product from "./Admin/Product";
@@ -43,6 +46,7 @@ function App() {
           </Box>
         </Container> */}
       </Routes>
+      <Footer />
     </div>
   );
 }
