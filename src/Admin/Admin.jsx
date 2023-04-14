@@ -1,27 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import '../Admin/styles.css'
+import w from '../Admin/photos/work-computer.gif'
+
 
 const Admin = () => {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to="/Admin/user" className="nav-link">
-            User
-          </Link>
-        </li>
-        <li>
-          <Link to="/Admin/product" className="nav-link">
-            Product
-          </Link>
-        </li>
-        <li>
-          <Link to="/Admin/test" className="nav-link">
-            Test
-          </Link>
-        </li>
-      </ul>
-    </div>
+
+      <img src={w} alt="admin-foto" className="footer-image" />
+
   );
 };
 

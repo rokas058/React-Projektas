@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import "../Admin/styles.css";
 
 const columns = [
   {
@@ -39,21 +39,17 @@ export default function Product() {
 
   const tableInstance = useTable({
     columns,
-    data,
+    data: React.useMemo(() => data, [data]),
   });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
   return (
+    <>
     <div className="container">
       <div className="row">
         <div className="col-md-12">
-          <Button>
-            <Link to="/admin" className="nav-link">
-              Back
-            </Link>
-          </Button>
         </div>
       </div>
       <div className="row">
@@ -85,5 +81,6 @@ export default function Product() {
         </table>
       </div>
     </div>
+    </>
   );
 }
