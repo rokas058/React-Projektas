@@ -4,14 +4,13 @@ import LoginModal from './LoginModal';
 function LoginButton() {
   const [showModal, setShowModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
       setIsAuthenticated(true);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -42,18 +41,12 @@ function LoginButton() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('accessToken');
-    setLoginSuccess(false);
   };
 
   return (
     <div>
       {isAuthenticated ? (
         <div>
-          {loginSuccess ? (
-            <div className="success-message">You have successfully logged in!</div>
-          ) : (
-            <button onClick={handleShowModal}>Log in</button>
-          )}
           <button onClick={handleLogout}>Log out</button>
         </div>
       ) : (
