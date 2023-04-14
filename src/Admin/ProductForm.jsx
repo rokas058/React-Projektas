@@ -54,6 +54,7 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
   };
 
   return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginTop: "10px" }}>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -66,7 +67,6 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
             required
           />
         </Grid>
-
         <Grid item xs={12}>
           <FormControl fullWidth required>
             <InputLabel id="kategorija-label">Kategorija</InputLabel>
@@ -122,12 +122,12 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
+          <button className="sukurti-mygtukas">
             Prideti meno kurini
-          </Button>
+          </button>
         </Grid>
         <Grid item xs={12}>
-          <Button
+          <Button className="sukurti-mygtukas"
             component={Link}
             to="/admin/product"
             variant="outlined"
@@ -138,6 +138,7 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
         </Grid>
       </Grid>
     </form>
+    </div>
   );
 };
 

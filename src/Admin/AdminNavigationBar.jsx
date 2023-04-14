@@ -1,31 +1,3 @@
-// import React from 'react'
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import '../Admin/styles.css'
-
-// const AdminNavigationBar = () => {
-//   return (
-//     <div>
-//       <Navbar bg="dark" variant="dark">
-//         <Container>
-//           <Navbar.Brand href="/admin">Administratorius</Navbar.Brand>
-//           <Nav className="me-auto">
-//             <Nav.Link href="/admin/user">Vartotojai</Nav.Link>
-//             <Nav.Link href="/admin/product" className="ms-3 me-3">Produktai</Nav.Link>
-//             <Nav.Link href="/admin/test" className="me-3">Pirkimai</Nav.Link>
-//             <div className='menas-mygtukas'>
-//               <Nav.Link href="/" className="me-3">Menas</Nav.Link>
-//             </div>
-//           </Nav>
-//         </Container>
-//       </Navbar>
-//     </div>
-//   )
-// }
-
-// export default AdminNavigationBar
-
 import React from 'react'
 import { Link } from "react-router-dom";
 import '../Admin/styles.css'

@@ -1,5 +1,5 @@
 // Forma skirta ikelto produkto informacijos redagavimui
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -20,9 +20,11 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
       ismatavimai: "",
       kurejas: "",
       kaina: "",
-      // photo: "",
+      photo: "",
     }
   );
+  const fileInputRef = useRef(null);
+
   useEffect(() => {
     if (initialProduct) {
       setProduct(initialProduct);
@@ -34,22 +36,27 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
     setProduct({ ...product, [name]: value });
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const { name, files } = event.target;
-    setProduct({ ...product, [name]: files[0] });
+    if (files && files[0]) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const byteArray = new Uint8Array(reader.result);
+        setProduct({ ...product, [name]: Array.from(byteArray) });
+      };
+      reader.readAsArrayBuffer(file);
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    Object.entries(product).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+
     if (onSubmit) {
-      onSubmit(formData);
+      onSubmit(product);
     } else {
-      await axios.post("http://localhost:8080/admin/product", formData);
-      alert("Sėkmingai įkelta");
+      await axios.put(`http://localhost:8080/product/${product.id}`, product);
+      alert("Product updated successfully");
     }
   };
 
@@ -113,14 +120,19 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
             required
           />
         </Grid>
-        {/* <Grid item xs={12}>
-          <input
-            name="photo"
-            type="file"
-            onChange={handleFileChange}
-            required
-          />
-        </Grid> */}
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" component="label">
+            Pakeisti nuotrauka
+            <input
+              ref={fileInputRef}
+              id="photo"
+              name="photo"
+              type="file"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+          </Button>
+        </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
             Issaugoti pakeitimus
