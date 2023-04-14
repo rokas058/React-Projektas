@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import Home from "./pages/Home";
 import Paveikslai from "./pages/Paveikslai";
@@ -16,7 +16,8 @@ import Product from "./Admin/Product";
 import ProductTable from "./Admin/ProductTable";
 import Test from "./Admin/Test";
 import ProductForm from "./Admin/ProductForm";
-// import { Container, Box } from "@mui/material";
+import EditProduct from "./Admin/EditProduct";
+import EditProductForm from "./Admin/EditProductForm";
 
 function App() {
   return (
@@ -37,14 +38,8 @@ function App() {
         <Route path="/admin/test" element={<Test />} />
         <Route path="/admin/product/ProductForm" element={<ProductForm />} />
 
-        {/* <Container maxWidth="md">
-          <Box my={4}>
-            <ProductForm />
-          </Box>
-          <Box my={4}>
-            <ProductTable />
-          </Box>
-        </Container> */}
+        <Route path="/admin/product/edit/:id" element={<EditProduct />} />
+        <Route path="/admin/product/edit/:id" element={<EditProductForm />} />
       </Routes>
       <Footer />
     </div>
