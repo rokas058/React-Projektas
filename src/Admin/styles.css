@@ -120,14 +120,43 @@
 }
 
 .menas-mygtukas {
-    display: block;
     color: #fff;
     text-decoration: none;
     padding: 10px 20px;
     margin-bottom: 10px;
     font-size: x-large;
-    text-align: right;
-    margin-left: 850px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    z-index: 1;
 }
 
+.navbar-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sukurti-mygtukas {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 2px 0px 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.sukurti-mygtukas:hover{
+    background-color: #555555;
+    color: white;
+}
 
