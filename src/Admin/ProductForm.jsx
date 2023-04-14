@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// forma skirta tik naujo kurinio ikelimui
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -11,15 +12,22 @@ import {
   MenuItem,
 } from "@mui/material";
 
-const ProductForm = () => {
-  const [product, setProduct] = useState({
-    pavadinimas: "",
-    kategorija: "",
-    ismatavimai: "",
-    kurejas: "",
-    kaina: "",
-    photo: "",
-  });
+const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
+  const [product, setProduct] = useState(
+    initialProduct || {
+      pavadinimas: "",
+      kategorija: "",
+      ismatavimai: "",
+      kurejas: "",
+      kaina: "",
+      photo: "",
+    }
+  );
+  useEffect(() => {
+    if (initialProduct) {
+      setProduct(initialProduct);
+    }
+  }, [initialProduct]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,9 +45,12 @@ const ProductForm = () => {
     Object.entries(product).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
-    await axios.post("http://localhost:8080/admin/product", formData);
-    alert("Sėkmingai įkelta");
+    if (onSubmit) {
+      onSubmit(formData);
+    } else {
+      await axios.post("http://localhost:8080/admin/product", formData);
+      alert("Sėkmingai įkelta");
+    }
   };
 
   return (

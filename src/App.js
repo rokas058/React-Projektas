@@ -1,4 +1,5 @@
-import { useLocation, Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, useParams } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import AdminNavigationBar from "./Admin/AdminNavigationBar";
 import Home from "./pages/Home";
@@ -8,12 +9,16 @@ import Skulpturos from "./pages/Skulpturos";
 import Keramika from "./pages/Keramika";
 import Paveikslas from "./pages/Paveikslas";
 import Footer from "./components/Footer";
+
 import Admin from "./Admin/Admin";
 import User from "./Admin/User";
 import Product from "./Admin/Product";
 import ProductTable from "./Admin/ProductTable";
 import Test from "./Admin/Test";
 import ProductForm from "./Admin/ProductForm";
+import EditProduct from "./Admin/EditProduct";
+import EditProductForm from "./Admin/EditProductForm";
+
 
 function App() {
   const location = useLocation();
@@ -36,6 +41,8 @@ function App() {
         <Route path="/admin/product/ProductTable" element={<ProductTable />} />
         <Route path="/admin/test" element={<Test />} />
         <Route path="/admin/product/ProductForm" element={<ProductForm />} />
+        <Route path="/admin/product/edit/:id" element={<EditProduct />} />
+        <Route path="/admin/product/edit/:id" element={<EditProductForm />} />
       </Routes>
       {!isAdmin && <Footer />}
     </div>
