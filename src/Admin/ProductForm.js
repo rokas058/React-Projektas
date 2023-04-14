@@ -65,7 +65,7 @@ const ProductForm = () => {
               value={product.kategorija}
               onChange={handleChange}
             >
-              <MenuItem value="PAVEIKSLAI">PAVEIKSLAI</MenuItem>
+              <MenuItem value="PAVEIKSLAS">PAVEIKSLAS</MenuItem>
               <MenuItem value="FOTOGRAFIJA">FOTOGRAFIJA</MenuItem>
               <MenuItem value="SKULPTURA">SKULPTURA</MenuItem>
               <MenuItem value="KERAMIKA">KERAMIKA</MenuItem>

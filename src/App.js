@@ -1,27 +1,27 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { useLocation, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import AdminNavigationBar from "./Admin/AdminNavigationBar";
 import Home from "./pages/Home";
 import Paveikslai from "./pages/Paveikslai";
 import Fotografija from "./pages/Fotografija";
 import Skulpturos from "./pages/Skulpturos";
 import Keramika from "./pages/Keramika";
-
 import Paveikslas from "./pages/Paveikslas";
 import Footer from "./components/Footer";
-
 import Admin from "./Admin/Admin";
 import User from "./Admin/User";
 import Product from "./Admin/Product";
 import ProductTable from "./Admin/ProductTable";
 import Test from "./Admin/Test";
 import ProductForm from "./Admin/ProductForm";
-// import { Container, Box } from "@mui/material";
 
 function App() {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+
   return (
     <div>
-      <NavigationBar />
+      {isAdmin ? <AdminNavigationBar /> : <NavigationBar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/paveikslai" element={<Paveikslai />} />
@@ -29,26 +29,18 @@ function App() {
         <Route path="/skulpturos" element={<Skulpturos />} />
         <Route path="/keramika" element={<Keramika />} />
         <Route exact path="/:id" element={<Paveikslas />} />
-
+        
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/product" element={<Product />} />
         <Route path="/admin/product/ProductTable" element={<ProductTable />} />
         <Route path="/admin/test" element={<Test />} />
         <Route path="/admin/product/ProductForm" element={<ProductForm />} />
-
-        {/* <Container maxWidth="md">
-          <Box my={4}>
-            <ProductForm />
-          </Box>
-          <Box my={4}>
-            <ProductTable />
-          </Box>
-        </Container> */}
       </Routes>
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   );
 }
 
 export default App;
+
