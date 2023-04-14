@@ -13,13 +13,13 @@ import Footer from "./components/Footer";
 import Admin from "./Admin/Admin";
 import User from "./Admin/User";
 import Product from "./Admin/Product";
-import ProductTable from "./Admin/ProductTable";
 import Test from "./Admin/Test";
 import ProductForm from "./Admin/ProductForm";
 import EditProduct from "./Admin/EditProduct";
 import EditProductForm from "./Admin/EditProductForm";
 import UserEdit from "./Admin/UserEdit";
 import UserEditForm from "./Admin/UserEditForm";
+
 
 function App() {
   const location = useLocation();
@@ -39,8 +39,6 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/product" element={<Product />} />
-
-        <Route path="/admin/product/ProductTable" element={<ProductTable />} />
         <Route path="/admin/test" element={<Test />} />
         <Route path="/admin/product/ProductForm" element={<ProductForm />} />
         <Route path="/admin/product/edit/:id" element={<EditProduct />} />
