@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import AdminNavigationBar from "./Admin/AdminNavigationBar";
 import Home from "./pages/Home";
