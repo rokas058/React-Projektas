@@ -1,0 +1,133 @@
+.admin-tools-wrapper {
+    display: flex;
+    justify-content: center;
+    background-color: #f0f0f0;
+    height: 100%;
+}
+
+.admin-tools-container {
+    margin: 0 auto;
+    border-radius: none;
+}
+
+.side-bar {
+    background-color: #f2f2f2;
+}
+
+.admin-tools-title {
+    font-weight: 900;
+    color: #685e5e;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-size: xx-large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.admin-tools-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: grey;
+    font-size: x-large;
+}
+
+.admin-tools-link {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    font-size: x-large
+}
+
+.admin-tools-link:hover {
+    background-color: lightgray;
+}
+
+.footer-image {
+    display: block;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 250px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    width: 800px;
+}
+
+.grizti-mygtukas{
+    padding: 10px 20px ;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 5px 5px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #cfcdcd;
+    border-radius: 5px;
+}
+
+.grizti-mygtukas:hover {
+    background-color: #e7e7e7;
+}
+
+.user-photo{
+    width: 40px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+
+.navbar {
+    background-color: rgb(124, 123, 123);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.navbar-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    margin-right: 20px;
+}
+
+.navbar-item:last-child {
+    margin-right: 0;
+}
+
+.navbar-item-right {
+    margin-left: auto;
+}
+
+.navbar-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar-link:hover {
+    color: #ccc;
+}
+
+.menas-mygtukas {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    font-size: x-large;
+    text-align: right;
+    margin-left: 850px;
+}
+
+
