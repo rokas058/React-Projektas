@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
 import { NavLink } from "react-router-dom";
 import "../Admin/styles.css";
 
-const columns = [
-  {
-    Header: "ID",
-    accessor: "id",
-  },
-  {
-    Header: "Vardas",
-    accessor: "firstName",
-  },
-  {
-    Header: "Pavardė",
-    accessor: "lastName",
-  },
-  {
-    Header: "El. paštas",
-    accessor: "email",
-  },
-];
-
 export default function Product() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     axios
       .get("http://localhost:8080/admin/user")
       .then((response) => {
@@ -35,7 +20,54 @@ export default function Product() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:8080/admin/user/${id}`)
+      .then((response) => {
+        fetchData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "ID",
+        accessor: "id",
+      },
+      {
+        Header: "Vardas",
+        accessor: "firstName",
+      },
+      {
+        Header: "Pavardė",
+        accessor: "lastName",
+      },
+      {
+        Header: "El. paštas",
+        accessor: "email",
+      },
+      {
+        Header: "Delete",
+        id: "delete",
+        Cell: ({ row }) => (
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              handleDelete(row.original.id);
+            }}
+          >
+            Delete
+          </button>
+        ),
+      },
+    ],
+    []
+  );
 
   const tableInstance = useTable({
     columns,
@@ -47,40 +79,39 @@ export default function Product() {
 
   return (
     <>
-    <div className="container">
-      <div className="row">
-        <div className="col-md-12">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12"></div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col-md-12"></div>
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+        <div className="row">
+          <div className="col-md-12"></div>
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
                   ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </>
   );
 }
