@@ -43,11 +43,11 @@
   .home__buttons button {
     padding: 10px 20px;
     border: none;
-    background-color: #fff;
+    background-color: transparent;
     color: #333;
     font-size: 1.1rem;
+    letter-spacing: 1px;
     cursor: pointer;
-    border-radius: 8px;
   }
   
   .home__buttons button:hover {

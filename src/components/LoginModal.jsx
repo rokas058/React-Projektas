@@ -16,12 +16,12 @@ function LoginModal(props) {
 
   const handleSwitchForm = () => {
     setShowRegister(!showRegister);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/registration', {
+      const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -30,23 +30,33 @@ function LoginModal(props) {
       });
       const data = await response.json();
       console.log(data);
-      // handle response data as needed
+      if (response.status === 200) {
+        props.onLogin(data.accessToken);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: ''
+        });
+        props.onHide();
+      } else {
+        alert(data.message);
+      }
     } catch (error) {
       console.error(error);
-      // handle error as needed
     }
-  }
+  };
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value
     });
-  }
+  };
 
   return (
     <Modal
@@ -56,43 +66,93 @@ function LoginModal(props) {
       keyboard={false}
     >
       <Modal.Header closeButton>
-        <Modal.Title>{showRegister ? 'Register' : 'Log In'}</Modal.Title>
+        <Modal.Title>
+          {showRegister ? 'Register' : 'Log In'}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           {showRegister && (
-            <Form.Group controlId="lastName">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter your last name" onChange={handleChange} />
-            </Form.Group>
+            <>
+              <Form.Group controlId="firstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your first name"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="lastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your last name"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </>
           )}
-          <Form.Group controlId="firstName">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter your first name" onChange={handleChange} />
-          </Form.Group>
           <Form.Group controlId="email">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" required onChange={handleChange} />
+            <Form.Control
+              type="text"
+              placeholder="Enter email"
+              required
+              onChange={handleChange}
+            />
           </Form.Group>
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <div className="password-container">
-              <Form.Control type={showPassword ? "text" : "password"} placeholder="Password" required onChange={handleChange} />
-              <button type="button" className="password-toggle-btn" onClick={handlePasswordToggle}>
-                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              <Form.Control
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                required
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={handlePasswordToggle}
+              >
+                <FontAwesomeIcon
+                  icon={showPassword ? faEye : faEyeSlash}
+                  className="password-toggle-icon"
+                />
               </button>
             </div>
           </Form.Group>
           <Button variant="primary" type="submit">
             {showRegister ? 'Register' : 'Log In'}
           </Button>
-          <Button variant="link" onClick={handleSwitchForm}>
-            {showRegister ? 'Already have an account? Log in here.' : "Don't have an account? Register."}
-          </Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
-  );
-}
+          {showRegister ? (
+            <p className="switch-form-text">
+              Already have an account?{' '}
+              <button
+                type="button"
+                className="switch-form-btn"
+                onClick={handleSwitchForm}
+                >
+                Log In
+                </button>
+                </p>
+                ) : (
+                <p className="switch-form-text">
+                Don't have an account?{' '}
+                <button
+                  type="button"
+                  className="switch-form-btn"
+                  onClick={handleSwitchForm}
+                >
+                Register
+                </button>
+                </p>
+                )}
+                </Form>
+                </Modal.Body>
+                </Modal>
+                );
+                }
 
-export default LoginModal;
+                export default LoginModal;
+               

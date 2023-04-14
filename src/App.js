@@ -38,11 +38,17 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/product" element={<Product />} />
+
+        <Route
+          path="/admin/product/create_product"
+          element={<Create_product />}
+        />
         <Route path="/admin/product/ProductTable" element={<ProductTable />} />
         <Route path="/admin/test" element={<Test />} />
         <Route path="/admin/product/ProductForm" element={<ProductForm />} />
         <Route path="/admin/product/edit/:id" element={<EditProduct />} />
         <Route path="/admin/product/edit/:id" element={<EditProductForm />} />
+
       </Routes>
       {!isAdmin && <Footer />}
     </div>
