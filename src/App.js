@@ -33,7 +33,7 @@ function App() {
           path="/admin/product/create_product"
           element={<Create_product />}
         />
-        <Route path="/admin/test" element={<Test />} />
+        <Route path="/admin/test" element={<Test />} /> 
       </Routes>
       <Footer/>
     </div>
