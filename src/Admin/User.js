@@ -39,7 +39,7 @@ export default function Product() {
 
   const tableInstance = useTable({
     columns,
-    data,
+    data: React.useMemo(() => data, [data]),
   });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
