@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../Admin/styles.css";
 
-export default function Product() {
+export default function User() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   useEffect(() => {
     fetchData();
@@ -25,6 +26,17 @@ export default function Product() {
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:8080/admin/user/${id}`)
+      .then((response) => {
+        fetchData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleToggleEnabled = (id) => {
+    // Use the correct API endpoint for enabling/disabling users
+    axios
+      .put(`http://localhost:8080/admin/user/enable/${id}`)
       .then((response) => {
         fetchData();
       })
@@ -52,6 +64,37 @@ export default function Product() {
         accessor: "email",
       },
       {
+        Header: "Edit",
+        id: "edit",
+        Cell: ({ row }) => (
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate(`/admin/user/edit/${row.original.id}`);
+            }}
+          >
+            Edit
+          </button>
+        ),
+      },
+      {
+        Header: "Enable/Disable",
+        id: "enable-disable",
+        Cell: ({ row }) => (
+          <button
+            className={`btn ${
+              row.original.enabled ? "btn-warning" : "btn-success"
+            }`}
+            onClick={() => {
+              handleToggleEnabled(row.original.id, !row.original.enabled);
+            }}
+          >
+            {row.original.enabled ? "Disable" : "Enable"}
+          </button>
+        ),
+      },
+
+      {
         Header: "Delete",
         id: "delete",
         Cell: ({ row }) => (
@@ -66,7 +109,7 @@ export default function Product() {
         ),
       },
     ],
-    []
+    [navigate]
   );
 
   const tableInstance = useTable({

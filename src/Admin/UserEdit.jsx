@@ -1,47 +1,48 @@
-// // UserEdit.jsx
-// import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
-// import axios from "axios";
-// import UserEditForm from "./UserEditForm";
+import React, { useState, useEffect } from "react";
+import UserEditForm from "./UserEditForm";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-// const UserEdit = () => {
-//   const { id } = useParams();
-//   const [product, setUser] = useState(null);
+function UserEdit({ onUserUpdated }) {
+  const { id } = useParams();
+  const [user, setUser] = useState(null);
 
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//       try {
-//         const response = await axios.get(
-//           `http://localhost:8080/admin/user/${id}`
-//         );
-//         setUser(response.data);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
+  useEffect(() => {
+    fetchUser(id);
+  }, [id]);
 
-//     fetchUser();
-//   }, [id]);
+  const fetchUser = (userId) => {
+    axios
+      .get(`http://localhost:8080/admin/user/${userId}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-//   const handleEditSubmit = async (formData) => {
-//     try {
-//       await axios.put(`http://localhost:8080/admin/user/${id}`, formData);
-//       alert("Vartotojas atnaujintas");
-//     } catch (error) {
-//       console.log(error);
-//       alert("Atnaujinti nepavyko");
-//     }
-//   };
+  const updateUser = (updatedUser) => {
+    axios
+      .put(`http://localhost:8080/admin/user/${id}`, updatedUser)
+      .then((response) => {
+        console.log(response);
+        onUserUpdated(); // Refresh the user list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-//   return (
-//     <div>
-//       {user ? (
-//         <UserEditForm user={user} onSubmit={handleEditSubmit} />
-//       ) : (
-//         <p>Loading...</p>
-//       )}
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      {user ? (
+        <UserEditForm user={user} onUpdateUser={updateUser} />
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+  );
+}
 
-// export default UserEdit;
+export default UserEdit;

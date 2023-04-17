@@ -1,46 +1,63 @@
-// import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// function UserEditForm(props) {
-//     const [firstName, setFirstName] = useState(props.user.firstName);
-//     const [lastName, setLastName] = useState(props.user.lastName);
-//     const [email, setEmail] = useState(props.user.email);
+export default function UserEditForm({ user, onUpdateUser }) {
+  const [formData, setFormData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+  });
+  const navigate = useNavigate();
 
-//     const handleSave = () => {
-//         // Send a PUT request to update the user
-//         axios.put(`http://localhost:8080/admin/user/${props.user.id}`, {
-//             firstName: firstName,
-//             lastName: lastName,
-//             email: email
-//         })
-//         .then((response) => {
-//             // Update the table with the new user data
-//             props.onSave({
-//                 id: props.user.id,
-//                 firstName: firstName,
-//                 lastName: lastName,
-//                 email: email
-//             });
-//             // Close the modal
-//             props.onClose();
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         });
-//     };
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
 
-//     return (
-//         <div className="modal">
-//             <div className="modal-content">
-//                 <h2>Edit User</h2>
-//                 <label>First Name:</label>
-//                 <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-//                 <label>Last Name:</label>
-//                 <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-//                 <label>Email:</label>
-//                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-//                 <button onClick={handleSave}>Save</button>
-//                 <button onClick={props.onClose}>Cancel</button>
-//             </div>
-//         </div>
-//     );
-// }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onUpdateUser(formData);
+    navigate("/admin/user", { replace: true });
+    window.location.reload(); // Add this line to reload the page
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="firstName">Vardas</label>
+        <input
+          type="text"
+          className="form-control"
+          id="firstName"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="lastName">Pavardė</label>
+        <input
+          type="text"
+          className="form-control"
+          id="lastName"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="email">El. paštas</label>
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit" className="btn btn-primary">
+        Save Changes
+      </button>
+    </form>
+  );
+}
