@@ -5,24 +5,29 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import '../Admin/styles.css'
 
+const accessToken = localStorage.getItem("accessToken");
+
+const api = axios.create({
+  baseURL: "http://localhost:8080",
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+});
+
 export default function Product() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/admin/product")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  useEffect(() => { const token = localStorage.getItem('accessToken'); 
+  axios 
+  .get("http://localhost:8080/admin/product", 
+  { headers: { Authorization: `Bearer ${token}` } }) 
+  .then((response) => { setData(response.data); }) 
+  .catch((error) => { console.log(error); }); }, []);
 
   const handleDelete = useCallback((id) => {
-    axios
-      .delete(`http://localhost:8080/admin/product/${id}`)
+    api
+      .delete(`/admin/product/${id}`)
       .then((response) => {
         setData((prevData) =>
           prevData.filter((product) => product.id !== id)
