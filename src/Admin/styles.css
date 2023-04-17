@@ -1,4 +1,4 @@
-.admin-tools-wrapper {
+/* .admin-tools-wrapper {
     display: flex;
     justify-content: center;
     background-color: #f0f0f0;
@@ -29,14 +29,13 @@
     padding: 0;
     background-color: grey;
     font-size: x-large;
-}
+} */
 
 .admin-tools-link {
     display: block;
     color: #fff;
     text-decoration: none;
-    padding: 10px 10px;
-    margin-bottom: 10px;
+    padding: 10px;
     font-size: x-large
 }
 
@@ -107,7 +106,7 @@
 
 .navbar-item-right {
     margin-left: auto;
-}
+} */
 
 .navbar-link {
     color: #fff;
@@ -119,44 +118,125 @@
     color: #ccc;
 }
 
-.menas-mygtukas {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    font-size: x-large;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    position: absolute;
-    top: 10px;
-    right: 0;
-    z-index: 1;
-}
-
 .navbar-list {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.sukurti-mygtukas {
+.atgal-mygtukas {
     background-color: white;
     color: black;
     border: 2px solid #555555;
-    padding: 10px 32px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
-    margin: 2px 0px 10px;
     transition-duration: 0.4s;
     cursor: pointer;
     font-weight: bolder;
+    margin-top: 7px;
+    margin-left: 8px;
 }
 
-.sukurti-mygtukas:hover{
+.atgal-mygtukas:hover{
     background-color: #555555;
     color: white;
 }
 
+.sukurti-mygtukas{
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.sukurti-mygtukas:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.foto-mygtukas{
+    color: #008CBA;
+    border: 2px solid #008CBA;
+    border: 2px solid #008CBA;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 0px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 100%;
+}
+
+.foto-mygtukas:hover{
+    background-color: #008CBA;
+    color: white;
+    
+ 
+}
+
+
+.div-pagrindinis {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.div-vienas {
+    display: flex;
+    background-color: rgb(124, 123, 123);
+    padding: 10px;
+    width: 50%;
+}
+
+.div-du {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: rgb(124, 123, 123);
+    padding: 10px;
+    width: 50%;
+}
+
+.meno-mygtukas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    font-size: large;
+    background-color: rgb(124, 123, 123);
+    margin-left: 10px;
+    /* pakeistas plotis, todėl nereikia nustatyti fiksuoto plotio */
+}
+
+.meno-mygtukas:hover {
+    background-color: lightgray;
+}
+
+.pag-antraste {
+    text-align: center;
+    margin-top: 50px;
+    /* adjust as needed */
+}
+
+.pag-foto {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}

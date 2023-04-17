@@ -38,6 +38,7 @@ export default function Product() {
     [navigate]
   );
 
+
   const handleEdit = useCallback(
     (id) => {
       navigate(`/admin/product/edit/${id}`);
@@ -119,9 +120,11 @@ export default function Product() {
     <div className="container">
       <div className="row">
         <div className="col-md-12">
+
           <a href="/admin/product/ProductForm" className="sukurti-mygtukas">
             Prideti
           </a>
+
         </div>
       </div>
       <table {...getTableProps()} style={{ width: "100%" }}>
