@@ -61,6 +61,9 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
   };
 
   return (
+    <>
+    <h1 style={{ textAlign: "center", fontWeight: "bold", marginTop: "40px", marginBottom: "-20px"}}>Koreguoti produkta</h1>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginTop: "10px" }}>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -121,7 +124,7 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" component="label">
+          <button className="foto-mygtukas" size="large" onClick={() => fileInputRef.current.click()}>
             Pakeisti nuotrauka
             <input
               ref={fileInputRef}
@@ -131,25 +134,22 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
               onChange={handleFileChange}
               style={{ display: "none" }}
             />
-          </Button>
+          </button>
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Issaugoti pakeitimus
-          </Button>
+          <button className="sukurti-mygtukas">
+            Išsaugoti pakeitimus
+          </button>
         </Grid>
-        <Grid item xs={12}>
-          <Button
-            component={Link}
-            to="/admin/product"
-            variant="outlined"
-            color="primary"
-          >
-            Back
+        <Button className="atgal-mygtukas">
+            <Link to="/admin/product" className="atgal-mygtukas">
+              Atgal
+            </Link>
           </Button>
-        </Grid>
       </Grid>
     </form>
+    </div>
+    </>
   );
 };
 

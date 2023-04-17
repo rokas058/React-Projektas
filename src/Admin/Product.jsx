@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTable } from "react-table";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import '../Admin/styles.css'
+import "../Admin/styles.css";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -25,24 +25,29 @@ export default function Product() {
   .then((response) => { setData(response.data); }) 
   .catch((error) => { console.log(error); }); }, []);
 
-  const handleDelete = useCallback((id) => {
-    api
-      .delete(`/admin/product/${id}`)
-      .then((response) => {
-        setData((prevData) =>
-          prevData.filter((product) => product.id !== id)
-        );
-        navigate("/Admin/product");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [navigate]);
+
+
+  const handleDelete = useCallback(
+    (id) => {
+      axios
+        .delete(`http://localhost:8080/admin/product/${id}`)
+        .then((response) => {
+          setData((prevData) =>
+            prevData.filter((product) => product.id !== id)
+          );
+          navigate("/admin/product");
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    [navigate]
+  );
 
   const handleEdit = useCallback(
     (id) => {
-      navigate(`/Admin/product/edit/${id}`);
+      navigate(`/admin/product/edit/${id}`);
     },
     [navigate]
   );
@@ -79,7 +84,7 @@ export default function Product() {
           <img
             src={`data:image/jpeg;base64,${product.photo}`}
             alt="Product"
-            style={{ width: "100px", height: "100px", objectFit: "cover"}}
+            style={{ width: "100px", height: "100px", objectFit: "cover" }}
           />
         ),
       },
@@ -115,16 +120,17 @@ export default function Product() {
     data: useMemo(() => data, [data]),
   });
 
-  const { getTableProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  const { getTableProps, headerGroups, rows, prepareRow } = tableInstance;
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-12">
-            <a href="/admin/product/ProductForm" className="sukurti-mygtukas" >
-              Prideti
-            </a>
+
+          <a href="/admin/product/ProductForm" className="sukurti-mygtukas">
+            Prideti
+          </a>
+
         </div>
       </div>
       <table {...getTableProps()} style={{ width: "100%" }}>
@@ -132,9 +138,7 @@ export default function Product() {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </th>
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
               ))}
             </tr>
           ))}
@@ -155,4 +159,3 @@ export default function Product() {
     </div>
   );
 }
-
