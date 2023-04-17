@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
-import { NavLink } from "react-router-dom";
 import "../Admin/styles.css";
 
 export default function Product() {
@@ -25,7 +24,7 @@ export default function Product() {
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:8080/admin/user/${id}`)
-      .then((response) => {
+      .then(() => {
         fetchData();
       })
       .catch((error) => {
@@ -69,13 +68,8 @@ export default function Product() {
     []
   );
 
-  const tableInstance = useTable({
-    columns,
-    data: React.useMemo(() => data, [data]),
-  });
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+ const tableInstance = useTable({ columns, data });
+const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
   return (
     <>

@@ -7,42 +7,51 @@ import product from '../Admin/photos/product.png'
 import untitled from '../Admin/photos/admin.png'
 import art from '../Admin/photos/art.png'
 
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 const AdminNavigationBar = () => {
   return (
-    <nav className="navbar">
-      <ul className="navbar-list">
-        <li className="navbar-item">
-          <Link to="/admin" className="admin-tools-link">
-              <img src={untitled} alt="user-foto-admin" className="user-photo"/>
-              Administratorius
-            </Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/admin/user" className="admin-tools-link">
-              <img src={User} alt="user-foto" className="user-photo"/>
-              Vartotojai
-            </Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/admin/product" className="admin-tools-link">
-              <img src={product} alt="user-foto" className="user-photo"/>
-              Produktai
-            </Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/admin/test" className="admin-tools-link">
-              <img src={bay} alt="user-foto" className="user-photo"/>
-              Pirkimai
-            </Link>
-        </li>
-        <li className="menas-mygtukas">
-          <Link to="/" className="navbar-link">
-            <img src={art} alt="user-foto-admin" className="user-photo"/>
-            Menas
+    <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
+      <Container>
+        <Navbar.Brand href="#">
+          <Link to="/admin" className="admin-tools-link me-auto">
+            <img src={untitled} alt="user-foto-admin" className="user-photo"/>
+            Administratorius
           </Link>
-        </li>
-      </ul>
-    </nav>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#">
+              <Link to="/admin/user" className="admin-tools-link">
+                <img src={User} alt="user-foto" className="user-photo"/>
+                Vartotojai
+              </Link>
+            </Nav.Link>
+            <Nav.Link href="#">
+              <Link to="/admin/product" className="admin-tools-link">
+                <img src={product} alt="user-foto" className="user-photo"/>
+                Produktai
+              </Link>
+            </Nav.Link>
+            <Nav.Link href="#">
+              <Link to="/admin/test" className="admin-tools-link">
+                <img src={bay} alt="user-foto" className="user-photo"/>
+                Pirkimai
+              </Link>
+            </Nav.Link>
+          </Nav>
+          <Nav.Link href="#">
+            <Link to="/" className="admin-tools-link">
+              <img src={art} alt="user-foto-admin" className="user-photo"/>
+              Menas
+            </Link>
+          </Nav.Link>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

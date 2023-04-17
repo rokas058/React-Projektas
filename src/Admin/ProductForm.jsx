@@ -1,5 +1,5 @@
 // forma skirta tik naujo kurinio ikelimui
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -23,6 +23,9 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
       photo: "",
     }
   );
+
+  const fileInputRef = useRef(null);
+
   useEffect(() => {
     if (initialProduct) {
       setProduct(initialProduct);
@@ -54,7 +57,9 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginTop: "10px" }}>
+    <>
+    <h1 style={{ textAlign: "center", fontWeight: "bold", marginTop: "40px", marginBottom: "-20px"}}>Pridėti produkta</h1>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginTop: "-30px" }}>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -114,31 +119,34 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <input
-            name="photo"
-            type="file"
-            onChange={handleFileChange}
-            required
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <button className="sukurti-mygtukas">
-            Prideti meno kurini
+          <button className="foto-mygtukas" size="large" onClick={() => fileInputRef.current.click()}>
+            Pridėti nuotrauka
+            <input
+              ref={fileInputRef}
+              id="photo"
+              name="photo"
+              type="file"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
           </button>
         </Grid>
         <Grid item xs={12}>
-          <Button className="sukurti-mygtukas"
-            component={Link}
-            to="/admin/product"
-            variant="outlined"
-            color="primary"
-          >
-            Back
-          </Button>
+          <button className="sukurti-mygtukas">
+            Pridėti produkta
+          </button>
         </Grid>
+          <Button className="atgal-mygtukas">
+            <Link to="/admin/product" className="atgal-mygtukas">
+              Atgal
+            </Link>
+          </Button>
+
+
       </Grid>
     </form>
     </div>
+    </>
   );
 };
 

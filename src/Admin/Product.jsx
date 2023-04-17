@@ -27,7 +27,7 @@ export default function Product() {
         setData((prevData) =>
           prevData.filter((product) => product.id !== id)
         );
-        navigate("/Admin/product");
+        navigate("/admin/product");
         window.location.reload();
       })
       .catch((error) => {
@@ -37,7 +37,7 @@ export default function Product() {
 
   const handleEdit = useCallback(
     (id) => {
-      navigate(`/Admin/product/edit/${id}`);
+      navigate(`/admin/product/edit/${id}`);
     },
     [navigate]
   );
@@ -118,7 +118,7 @@ export default function Product() {
       <div className="row">
         <div className="col-md-12">
             <a href="/admin/product/ProductForm" className="sukurti-mygtukas" >
-              Prideti
+              Pridėti
             </a>
         </div>
       </div>
