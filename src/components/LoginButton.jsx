@@ -42,6 +42,7 @@ function LoginButton() {
     setIsAuthenticated(false);
     localStorage.removeItem('accessToken');
   };
+  
 
   return (
     <div>
