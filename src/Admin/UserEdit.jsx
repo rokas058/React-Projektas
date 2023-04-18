@@ -35,7 +35,7 @@ function UserEdit({ onUserUpdated }) {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: '25%', marginRight: '25%', marginTop: '50px'}}>
       {user ? (
         <UserEditForm user={user} onUpdateUser={updateUser} />
       ) : (

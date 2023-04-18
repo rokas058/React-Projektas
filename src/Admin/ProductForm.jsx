@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
+
 const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
   const [product, setProduct] = useState(
     initialProduct || {
@@ -37,10 +38,12 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
     setProduct({ ...product, [name]: value });
   };
 
+  //pridejau sita
   const handleFileChange = (event) => {
-    const { name, files } = event.target;
-    setProduct({ ...product, [name]: files[0] });
+  const { name, files } = event.target;
+  setProduct({ ...product, [name]: files[0], photoName: files[0].name });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,7 +62,7 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
   return (
     <>
     <h1 style={{ textAlign: "center", fontWeight: "bold", marginTop: "40px", marginBottom: "-20px"}}>Pridėti produkta</h1>
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginTop: "-30px" }}>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginLeft: '25%', marginRight: '25%', marginTop: '0' }}>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -119,8 +122,11 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <button className="foto-mygtukas" size="large" onClick={() => fileInputRef.current.click()}>
-            Pridėti nuotrauka
+          <button className="foto-mygtukas" size="large" onClick={() => {
+            fileInputRef.current.click();
+            alert("viskas gerai");
+          }}>
+            { product.photoName ? `Jūsų įkelta foto pavadinimu: ${product.photoName}` : "Pridėti nuotrauka"}
             <input
               ref={fileInputRef}
               id="photo"
@@ -131,6 +137,7 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
             />
           </button>
         </Grid>
+
         <Grid item xs={12}>
           <button className="sukurti-mygtukas">
             Pridėti produkta
@@ -141,8 +148,6 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
               Atgal
             </Link>
           </Button>
-
-
       </Grid>
     </form>
     </div>

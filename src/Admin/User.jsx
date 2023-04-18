@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../Admin/styles.css";
 import useAuth from "./useAuth";
 
+
 export default function User() {
   const authModal = useAuth();
   const [data, setData] = useState([]);
@@ -65,48 +66,53 @@ export default function User() {
         Header: "El. paštas",
         accessor: "email",
       },
+      
       {
-        Header: "Edit",
-        id: "edit",
+        // Header: "Leisti/Neleisti",
+        id: "leisti-neleisti",
         Cell: ({ row }) => (
           <button
-            className="btn btn-primary"
-            onClick={() => {
-              navigate(`/admin/user/edit/${row.original.id}`);
-            }}
-          >
-            Edit
-          </button>
-        ),
-      },
-      {
-        Header: "Enable/Disable",
-        id: "enable-disable",
-        Cell: ({ row }) => (
-          <button
+            style={{ width: "100px" }}
             className={`btn ${
-              row.original.enabled ? "btn-warning" : "btn-success"
+              row.original.enabled ? "btn-success" : "btn-warning"
             }`}
             onClick={() => {
               handleToggleEnabled(row.original.id, !row.original.enabled);
             }}
           >
-            {row.original.enabled ? "Disable" : "Enable"}
+            {row.original.enabled ? "Aktyvus" : "Neaktyvus"}
           </button>
         ),
       },
 
       {
-        Header: "Delete",
+        // Header: "Taisyti",
+        id: "taisyti",
+        Cell: ({ row }) => (
+          <button
+            style={{ width: "100px" }}
+            className="btn btn-info"
+            onClick={() => {
+              navigate(`/admin/user/edit/${row.original.id}`);
+            }}
+          >
+            Koreguoti
+          </button>
+        ),
+      },
+
+      {
+        // Header: "Delete",
         id: "delete",
         Cell: ({ row }) => (
           <button
+            style={{ width: "100px" }}
             className="btn btn-danger"
             onClick={() => {
               handleDelete(row.original.id);
             }}
           >
-            Delete
+            Ištrinti
           </button>
         ),
       },
@@ -119,6 +125,7 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tab
 
   return (
     <>
+
       <div className="container">
       {authModal}
         <div className="row">
@@ -136,23 +143,28 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tab
                     </th>
                   ))}
                 </tr>
+
+      
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+
               ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+    <br />
+    <br />
+  </div>
+</div>
     </>
   );
 }
