@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
 
-import { NavLink, useNavigate } from "react-router-dom";
-import "../Admin/styles.css";
+import { useNavigate } from "react-router-dom";
+// import "../Admin/styles.css";
 
 export default function User() {
   const [data, setData] = useState([]);
@@ -64,48 +64,53 @@ export default function User() {
         Header: "El. paštas",
         accessor: "email",
       },
+      
       {
-        Header: "Edit",
-        id: "edit",
+        // Header: "Leisti/Neleisti",
+        id: "leisti-neleisti",
         Cell: ({ row }) => (
           <button
-            className="btn btn-primary"
-            onClick={() => {
-              navigate(`/admin/user/edit/${row.original.id}`);
-            }}
-          >
-            Edit
-          </button>
-        ),
-      },
-      {
-        Header: "Enable/Disable",
-        id: "enable-disable",
-        Cell: ({ row }) => (
-          <button
+            style={{ width: "100px" }}
             className={`btn ${
-              row.original.enabled ? "btn-warning" : "btn-success"
+              row.original.enabled ? "btn-success" : "btn-warning"
             }`}
             onClick={() => {
               handleToggleEnabled(row.original.id, !row.original.enabled);
             }}
           >
-            {row.original.enabled ? "Disable" : "Enable"}
+            {row.original.enabled ? "Aktyvus" : "Neaktyvus"}
           </button>
         ),
       },
 
       {
-        Header: "Delete",
+        // Header: "Taisyti",
+        id: "taisyti",
+        Cell: ({ row }) => (
+          <button
+            style={{ width: "100px" }}
+            className="btn btn-info"
+            onClick={() => {
+              navigate(`/admin/user/edit/${row.original.id}`);
+            }}
+          >
+            Koreguoti
+          </button>
+        ),
+      },
+
+      {
+        // Header: "Delete",
         id: "delete",
         Cell: ({ row }) => (
           <button
+            style={{ width: "100px" }}
             className="btn btn-danger"
             onClick={() => {
               handleDelete(row.original.id);
             }}
           >
-            Delete
+            Ištrinti
           </button>
         ),
       },
@@ -118,39 +123,41 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tab
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12"></div>
-        </div>
-        <div className="row">
-          <div className="col-md-12"></div>
-          <table {...getTableProps()}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
+      <div class="container">
+  <div class="row">
+    <div class="col-md-12"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12"></div>
+    <table cellpadding="10" cellspacing="10">
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
               ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+    <br />
+    <br />
+  </div>
+</div>
     </>
   );
 }

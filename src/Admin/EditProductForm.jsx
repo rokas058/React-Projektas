@@ -1,7 +1,7 @@
 // Forma skirta ikelto produkto informacijos redagavimui
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -12,7 +12,15 @@ import {
   MenuItem,
 } from "@mui/material";
 
-const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
+
+
+
+
+
+
+
+
+const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) => {
   const [product, setProduct] = useState(
     initialProduct || {
       pavadinimas: "",
@@ -57,6 +65,8 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
     } else {
       await axios.put(`http://localhost:8080/product/${product.id}`, product);
       alert("Product updated successfully");
+
+      history.push(`/product/${product.id}`);
     }
   };
 
@@ -139,6 +149,7 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
         <Grid item xs={12}>
           <button className="sukurti-mygtukas">
             Išsaugoti pakeitimus
+            <link rel="stylesheet" href="http://localhost:3000/admin/product" />
           </button>
         </Grid>
         <Button className="atgal-mygtukas">
@@ -149,6 +160,7 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode }) => {
       </Grid>
     </form>
     </div>
+
     </>
   );
 };

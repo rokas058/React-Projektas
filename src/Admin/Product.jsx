@@ -92,7 +92,8 @@ export default function Product() {
         Header: "",
         id: "edit",
         Cell: ({ row }) => (
-          <Button variant="warning" onClick={() => handleEdit(row.original.id)}>
+          // jei neveikia tai nes klase pakeiciau
+          <Button variant="info" onClick={() => handleEdit(row.original.id)}>
             Koreguoti
           </Button>
         ),
