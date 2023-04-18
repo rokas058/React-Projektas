@@ -139,9 +139,8 @@ export default function Product() {
       {authModal}
       <div className="row">
         <div className="col-md-12">
-
           <a href="/admin/product/ProductForm" className="sukurti-mygtukas">
-            Prideti
+            Pridėti
           </a>
 
         </div>

@@ -1,7 +1,6 @@
-// Forma skirta ikelto produkto informacijos redagavimui
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -11,14 +10,6 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-
-
-
-
-
-
-
-
 
 const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) => {
   const [product, setProduct] = useState(
@@ -52,7 +43,7 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) =
       const reader = new FileReader();
       reader.onload = () => {
         const byteArray = new Uint8Array(reader.result);
-        setProduct({ ...product, [name]: Array.from(byteArray) });
+        setProduct({ ...product, [name]: Array.from(byteArray), photoName: file.name });
       };
       reader.readAsArrayBuffer(file);
     }
@@ -76,7 +67,7 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) =
   return (
     <>
     <h1 style={{ textAlign: "center", fontWeight: "bold", marginTop: "40px", marginBottom: "-20px"}}>Koreguoti produkta</h1>
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginTop: "10px" }}>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", marginLeft: '25%', marginRight: '25%', marginTop: '0' }}>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -89,7 +80,6 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) =
             required
           />
         </Grid>
-
         <Grid item xs={12}>
           <FormControl fullWidth required>
             <InputLabel id="kategorija-label">Kategorija</InputLabel>
@@ -137,8 +127,10 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) =
           />
         </Grid>
         <Grid item xs={12}>
-          <button className="foto-mygtukas" size="large" onClick={() => fileInputRef.current.click()}>
-            Pakeisti nuotrauka
+          <button className="foto-mygtukas" size="large" onClick={() => {
+            fileInputRef.current.click();
+          }}>
+            { product.photoName ? `Jūsų nauja foto pavadinimu: ${product.photoName}` : "Pridėti nuotrauka - ne didesne kaip 10 MB"}
             <input
               ref={fileInputRef}
               id="photo"
