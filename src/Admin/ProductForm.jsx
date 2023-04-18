@@ -129,9 +129,8 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
         <Grid item xs={12}>
           <button className="foto-mygtukas" size="large" onClick={() => {
             fileInputRef.current.click();
-            alert("viskas gerai");
           }}>
-            { product.photoName ? `Jūsų įkelta foto pavadinimu: ${product.photoName}` : "Pridėti nuotrauka"}
+            { product.photoName ? `Jūsų įkelta foto pavadinimu: ${product.photoName}` : "Pridėti nuotrauka - ne didesne kaip 10 MB"}
             <input
               ref={fileInputRef}
               id="photo"

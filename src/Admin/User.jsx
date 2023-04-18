@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../Admin/styles.css";
 import useAuth from "./useAuth";
+import PaginationAdmin from "./PaginationAdmin";
 
 
 export default function User() {
@@ -77,7 +78,6 @@ export default function User() {
       },
       
       {
-        // Header: "Leisti/Neleisti",
         id: "leisti-neleisti",
         Cell: ({ row }) => (
           <button
@@ -95,7 +95,6 @@ export default function User() {
       },
 
       {
-        // Header: "Taisyti",
         id: "taisyti",
         Cell: ({ row }) => (
           <button
@@ -111,7 +110,6 @@ export default function User() {
       },
 
       {
-        // Header: "Delete",
         id: "delete",
         Cell: ({ row }) => (
           <button
@@ -129,51 +127,49 @@ export default function User() {
     [navigate]
   );
 
- const tableInstance = useTable({ columns, data });
-const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
+  const tableInstance = useTable({ columns, data });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
   return (
     <>
-
       <div className="container">
-      {authModal}
-        <div className="row">
-          <div className="col-md-12"></div>
-        </div>
-        <div className="row">
-          <div className="col-md-12"></div>
-          <table {...getTableProps()}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
+        {authModal}
+          <div className="row">
+           <div className="col-md-12"></div>
+          </div>
+            <div className="row">
+              <div className="col-md-12"></div>
+                <table {...getTableProps()}>
+                  <thead>
+                    {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
                       {column.render("Header")}
-                    </th>
+                  </th>
                   ))}
-                </tr>
-
-      
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-
-              ))}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-    <br />
-    <br />
-  </div>
-</div>
+                  </tr>
+                  ))}
+                  </thead>
+                  <tbody {...getTableBodyProps()}>
+                    {rows.map((row) => {
+                      prepareRow(row);
+                      return (
+                        <tr {...row.getRowProps()}>
+                          {row.cells.map((cell) => (
+                            <td {...cell.getCellProps()}>{cell.render("Cell")}
+                            </td>
+                          ))}
+                        </tr>
+                            );
+                          })}
+                    </tbody>
+                </table>
+              </div>
+            </div>
+            <div>
+              <PaginationAdmin/>
+            </div>
     </>
   );
 }

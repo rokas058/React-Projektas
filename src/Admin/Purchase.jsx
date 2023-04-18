@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Table, Button } from "react-bootstrap";
 
 const Purchase = () => {
   const [purchases, setPurchases] = useState([]);
@@ -36,42 +37,40 @@ const Purchase = () => {
   };
 
   return (
-    <div>
-      <h1>Purchases</h1>
-      <table>
+    <div style={{ marginLeft: "15%", marginRight: "15%" }}>
+      <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>User ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Product IDs</th>
-            <th>Purchase Confirm</th>
-            <th>Action</th>
+            <th className="text-center">ID</th>
+            <th className="text-center">Varotojo ID</th>
+            <th className="text-center">Vardas</th>
+            <th className="text-center">Pavardė</th>
+            <th className="text-center">E.paštas</th>
+            <th className="text-center">Produkto IDs</th>
+            <th className="text-center">Statusas</th>
           </tr>
         </thead>
         <tbody>
           {purchases.map((purchase) => (
             <tr key={purchase.id}>
-              <td>{purchase.id}</td>
-              <td>{purchase.userId}</td>
-              <td>{purchase.userFirstName}</td>
-              <td>{purchase.userLastName}</td>
-              <td>{purchase.userEmail}</td>
-              <td>{purchase.productsId.join(", ")}</td>
-              <td>{purchase.purchaseConfirm ? "Yes" : "No"}</td>
-              <td>
-                <button onClick={() => acceptPurchase(purchase.id)}>
-                  Accept
-                </button>
+              <td className="text-center">{purchase.id}</td>
+              <td className="text-center">{purchase.userId}</td>
+              <td className="text-center">{purchase.userFirstName}</td>
+              <td className="text-center">{purchase.userLastName}</td>
+              <td className="text-center">{purchase.userEmail}</td>
+              <td className="text-center">{purchase.productsId.join(", ")}</td>
+              <td className="text-center">
+                < Button variant="success" onClick={() => acceptPurchase(purchase.id)}>
+                  Patvirtinti
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };
 
 export default Purchase;
+
