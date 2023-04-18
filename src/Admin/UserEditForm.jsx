@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Admin/styles.css";
 
 export default function UserEditForm({ user, onUpdateUser }) {
   const [formData, setFormData] = useState({
@@ -55,8 +56,8 @@ export default function UserEditForm({ user, onUpdateUser }) {
           onChange={handleChange}
         />
       </div>
-      <button type="submit" className="btn btn-primary">
-        Save Changes
+      <button type="submit" className="sukurti-mygtukas">
+        Išsaugoti pakeitimus
       </button>
     </form>
   );

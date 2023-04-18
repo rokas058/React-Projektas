@@ -8,7 +8,7 @@ const Admin = () => {
       <>
       <div className="pag-puslapis"></div>
       <h1 className="pag-antraste">Sveiki sugrize Administratoriau</h1>
-      <img className="pag-foto" src={w}/>
+      <img className="pag-foto" src={w} alt="foto-admino-puslapio"/>
       </>
   );
 };
