@@ -22,6 +22,9 @@ import EditProductForm from "./Admin/EditProductForm";
 import UserEdit from "./Admin/UserEdit";
 import UserEditForm from "./Admin/UserEditForm";
 
+import Paskyra from "./AccountUser/Paskyra";
+import PasswordChange from "./AccountUser/PasswordChange";
+
 function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
@@ -49,6 +52,9 @@ function App() {
 
         <Route path="/admin/user/edit/:id" element={<UserEdit />} />
         <Route path="/admin/user/edit/:id" element={<UserEditForm />} />
+
+        <Route path="/paskyra" element={<Paskyra />} />
+        <Route path="/password-change" element={<PasswordChange />} />
       </Routes>
       {!isAdmin && <Footer />}
     </div>

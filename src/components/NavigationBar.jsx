@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import LoginModal from './LoginModal';
+import React, { useState, useEffect } from "react";
+import { Navbar, Nav, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import LoginModal from "./LoginModal";
 
 function NavigationBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token) {
       setIsLoggedIn(true);
     }
@@ -26,12 +26,12 @@ function NavigationBar() {
 
   const handleLogin = (accessToken) => {
     setIsLoggedIn(true);
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem("accessToken", accessToken);
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem("accessToken");
   };
 
   return (
@@ -65,10 +65,19 @@ function NavigationBar() {
               Log In
             </Button>
           )}
-          <LoginModal show={showLoginModal} onHide={handleHideLoginModal} onLogin={handleLogin} />
+          <LoginModal
+            show={showLoginModal}
+            onHide={handleHideLoginModal}
+            onLogin={handleLogin}
+          />
           <Button variant="light" className="shopping-cart-btn">
             <FontAwesomeIcon icon={faShoppingCart} />
           </Button>
+          {isLoggedIn && (
+            <Link to="/paskyra" className="nav-link">
+              Paskyra
+            </Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
