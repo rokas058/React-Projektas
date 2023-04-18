@@ -32,6 +32,7 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) =
     }
   );
   const fileInputRef = useRef(null);
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (initialProduct) {
@@ -63,7 +64,9 @@ const EditProductForm = ({ product: initialProduct, onSubmit, mode, history }) =
     if (onSubmit) {
       onSubmit(product);
     } else {
-      await axios.put(`http://localhost:8080/product/${product.id}`, product);
+      await axios.put(`http://localhost:8080/product/${product.id}`, product, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       alert("Product updated successfully");
 
       history.push(`/product/${product.id}`);

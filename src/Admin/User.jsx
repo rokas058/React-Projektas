@@ -16,8 +16,11 @@ export default function User() {
   }, []);
 
   const fetchData = () => {
+    const token = localStorage.getItem("accessToken");
     axios
-      .get("http://localhost:8080/admin/user")
+      .get("http://localhost:8080/admin/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setData(response.data);
       })
@@ -27,8 +30,11 @@ export default function User() {
   };
 
   const handleDelete = (id) => {
+    const token = localStorage.getItem("accessToken");
     axios
-      .delete(`http://localhost:8080/admin/user/${id}`)
+    .delete(`http://localhost:8080/admin/user/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then(() => {
         fetchData();
       })
@@ -37,9 +43,12 @@ export default function User() {
       });
   };
   const handleToggleEnabled = (id) => {
+    const token = localStorage.getItem("accessToken");
     // Use the correct API endpoint for enabling/disabling users
     axios
-      .put(`http://localhost:8080/admin/user/enable/${id}`)
+    .put(`http://localhost:8080/admin/user/enable/${id}`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((response) => {
         fetchData();
       })

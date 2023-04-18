@@ -12,8 +12,11 @@ function UserEdit({ onUserUpdated }) {
   }, [id]);
 
   const fetchUser = (userId) => {
+    const token = localStorage.getItem("accessToken");
     axios
-      .get(`http://localhost:8080/admin/user/${userId}`)
+      .get(`http://localhost:8080/admin/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setUser(response.data);
       })
@@ -23,8 +26,11 @@ function UserEdit({ onUserUpdated }) {
   };
 
   const updateUser = (updatedUser) => {
+    const token = localStorage.getItem("accessToken");
     axios
-      .put(`http://localhost:8080/admin/user/${id}`, updatedUser)
+      .put(`http://localhost:8080/admin/user/${id}`, updatedUser, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         console.log(response);
         onUserUpdated(); // Refresh the user list

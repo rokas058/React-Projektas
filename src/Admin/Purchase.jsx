@@ -8,8 +8,12 @@ const Purchase = () => {
   }, []);
 
   const fetchData = async () => {
+    const token = localStorage.getItem("accessToken");
+
     try {
-      const response = await fetch("http://localhost:8080/admin/purchase");
+      const response = await fetch("http://localhost:8080/admin/purchase", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await response.json();
       setPurchases(data);
     } catch (error) {
@@ -18,9 +22,12 @@ const Purchase = () => {
   };
 
   const acceptPurchase = async (id) => {
+    const token = localStorage.getItem("accessToken");
+
     try {
       await fetch(`http://localhost:8080/admin/purchase/${id}`, {
         method: "PUT",
+        headers: { Authorization: `Bearer ${token}` },
       });
       setPurchases(purchases.filter((purchase) => purchase.id !== id));
     } catch (error) {

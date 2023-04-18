@@ -36,8 +36,11 @@ export default function Product() {
 
   const handleDelete = useCallback(
     (id) => {
+      const token = localStorage.getItem("accessToken");
       axios
-        .delete(`http://localhost:8080/admin/product/${id}`)
+        .delete(`http://localhost:8080/admin/product/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((response) => {
           setData((prevData) =>
             prevData.filter((product) => product.id !== id)
@@ -57,7 +60,8 @@ export default function Product() {
       navigate(`/admin/product/edit/${id}`);
     },
     [navigate]
-  );
+);
+
 
   const columns = useMemo(
     () => [

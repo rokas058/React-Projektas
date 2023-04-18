@@ -51,10 +51,15 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
     Object.entries(product).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    const accessToken = localStorage.getItem("accessToken");
     if (onSubmit) {
       onSubmit(formData);
     } else {
-      await axios.post("http://localhost:8080/admin/product", formData);
+      await axios.post("http://localhost:8080/admin/product", formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       alert("Sėkmingai įkelta");
     }
   };
