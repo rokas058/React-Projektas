@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useTable } from "react-table";
+import { NavLink, useNavigate } from "react-router-dom";
+import "../Admin/styles.css";
+import useAuth from "./useAuth";
 
-import { useNavigate } from "react-router-dom";
-// import "../Admin/styles.css";
 
 export default function User() {
+  const authModal = useAuth();
   const [data, setData] = useState([]);
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
@@ -123,22 +125,26 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tab
 
   return (
     <>
-      <div class="container">
-  <div class="row">
-    <div class="col-md-12"></div>
-  </div>
-  <div class="row">
-    <div class="col-md-12"></div>
-    <table cellpadding="10" cellspacing="10">
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>
-                {column.render("Header")}
-              </th>
-            ))}
-          </tr>
+
+      <div className="container">
+      {authModal}
+        <div className="row">
+          <div className="col-md-12"></div>
+        </div>
+        <div className="row">
+          <div className="col-md-12"></div>
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+
+      
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
@@ -148,6 +154,7 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tab
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
                 <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+
               ))}
             </tr>
           );
