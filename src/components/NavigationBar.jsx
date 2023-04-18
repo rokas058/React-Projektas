@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import LoginModal from "./LoginModal";
+
+import React, { useState, useEffect } from 'react';
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
+import ShoppingCartButton from './ShoppingCartButton';
+
 
 function NavigationBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -57,14 +58,18 @@ function NavigationBar() {
         </Nav>
         <Nav className="ml-auto">
           {isLoggedIn ? (
-            <Button variant="secondary" onClick={handleLogout}>
-              Log Out
-            </Button>
+            <>
+              <Button variant="secondary" onClick={handleLogout}>
+                Log Out
+              </Button>
+              <ShoppingCartButton />
+            </>
           ) : (
             <Button variant="primary" onClick={handleShowLoginModal}>
               Log In
             </Button>
           )}
+
           <LoginModal
             show={showLoginModal}
             onHide={handleHideLoginModal}
@@ -78,6 +83,7 @@ function NavigationBar() {
               Paskyra
             </Link>
           )}
+
         </Nav>
       </Navbar.Collapse>
     </Navbar>
