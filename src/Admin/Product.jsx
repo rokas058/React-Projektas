@@ -4,6 +4,7 @@ import { useTable } from "react-table";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import "../Admin/styles.css";
+import useAuth from "./useAuth";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -15,17 +16,23 @@ const api = axios.create({
 });
 
 export default function Product() {
+  const authModal = useAuth();
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => { const token = localStorage.getItem('accessToken'); 
-  axios 
-  .get("http://localhost:8080/admin/product", 
-  { headers: { Authorization: `Bearer ${token}` } }) 
-  .then((response) => { setData(response.data); }) 
-  .catch((error) => { console.log(error); }); }, []);
-
-
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    axios
+      .get("http://localhost:8080/admin/product", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleDelete = useCallback(
     (id) => {
@@ -124,6 +131,7 @@ export default function Product() {
 
   return (
     <div className="container">
+      {authModal}
       <div className="row">
         <div className="col-md-12">
 

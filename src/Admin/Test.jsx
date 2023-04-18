@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import useAuth from "./useAuth";
 
 const Test = () => {
+  const authModal = useAuth();
   return (
     <div>
+       {authModal}
       <h1>Test peidzas</h1>
       <p>Testuojam</p>
       <ul>
