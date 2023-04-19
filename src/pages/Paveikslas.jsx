@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './STYLES/paveikslas.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { ShoppingCartContext } from '../components/ShoppingCartContext';
 
 const Paveikslas = () => {
   const [paveikslas, setPaveikslas] = useState({});
   const { id } = useParams();
+  const { addToCart } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     const fetchPaveikslas = async () => {
@@ -16,6 +18,10 @@ const Paveikslas = () => {
     };
     fetchPaveikslas();
   }, [id]);
+
+  const handleAddToCart = () => {
+    addToCart(paveikslas);
+  };
 
   return (
     <div className="paveikslas-container">
@@ -28,7 +34,7 @@ const Paveikslas = () => {
         <p>Kaina: {paveikslas.kaina} €</p>
         <p>Aprašymas: {paveikslas.aprasymas}</p>
       </div>
-      <button className="cart-button">
+      <button className="cart-button" onClick={handleAddToCart}>
         <FontAwesomeIcon icon={faShoppingCart} />
       </button>
     </div>

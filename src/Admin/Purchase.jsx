@@ -16,6 +16,7 @@ const Purchase = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
+      console.log("Received data:", data);
       setPurchases(data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -58,7 +59,9 @@ const Purchase = () => {
               <td className="text-center">{purchase.userFirstName}</td>
               <td className="text-center">{purchase.userLastName}</td>
               <td className="text-center">{purchase.userEmail}</td>
-              <td className="text-center">{purchase.productsId.join(", ")}</td>
+              <td className="text-center">
+              {purchase.productsId ? purchase.productsId.map((id) => id).join(", ") : ""}
+            </td>
               <td className="text-center">
                 < Button variant="success" onClick={() => acceptPurchase(purchase.id)}>
                   Patvirtinti

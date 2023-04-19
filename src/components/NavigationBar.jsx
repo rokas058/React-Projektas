@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import LoginModal from "./LoginModal";
+import { ShoppingCartContext } from "./ShoppingCartContext";
+import "./NavigationBar.css";
+
 
 function NavigationBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { cartItems } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -57,9 +61,22 @@ function NavigationBar() {
         </Nav>
         <Nav className="ml-auto">
           {isLoggedIn ? (
-            <Button variant="secondary" onClick={handleLogout}>
-              Log Out
-            </Button>
+            <>
+            <Link to="/shopping-cart">
+              <Button variant="light" className="shopping-cart-btn">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                {cartItems.length > 0 && (
+                  <span className="cart-items-count">{cartItems.length}</span>
+                )}
+              </Button>
+            </Link>
+              <Link to="/paskyra" className="nav-link">
+                Paskyra
+              </Link>
+              <Button variant="secondary" onClick={handleLogout}>
+                Log Out
+              </Button>
+            </>
           ) : (
             <Button variant="primary" onClick={handleShowLoginModal}>
               Log In
@@ -70,14 +87,6 @@ function NavigationBar() {
             onHide={handleHideLoginModal}
             onLogin={handleLogin}
           />
-          <Button variant="light" className="shopping-cart-btn">
-            <FontAwesomeIcon icon={faShoppingCart} />
-          </Button>
-          {isLoggedIn && (
-            <Link to="/paskyra" className="nav-link">
-              Paskyra
-            </Link>
-          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

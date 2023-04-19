@@ -1,27 +1,21 @@
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .nav-links {
-    display: flex;
-  }
-  
-  .nav-links > .nav-link {
-    margin-right: 15px;
-  }
-  
-  .nav-links > .nav-link:last-child {
-    margin-right: 0;
-  }
-  
-  .login-btn {
-    margin-right: 10px;
-  }
-  
+
   .shopping-cart-btn {
+    position: relative;
     margin-left: 10px;
+  }
+  
+  .cart-items-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    font-weight:normal;
+    padding: 2px 5px;
+    border-radius: 25%;
+    display: inline-block;
+    min-width: 14px;
+    text-align: center;
   }
   

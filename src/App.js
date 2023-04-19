@@ -25,6 +25,10 @@ import UserEditForm from "./Admin/UserEditForm";
 import Paskyra from "./AccountUser/Paskyra";
 import PasswordChange from "./AccountUser/PasswordChange";
 
+import ShoppingCartPage from './pages/ShoppingCartPage';
+import Payments from './pages/Payments';
+
+
 function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
@@ -39,6 +43,10 @@ function App() {
         <Route path="/skulpturos" element={<Skulpturos />} />
         <Route path="/keramika" element={<Keramika />} />
         <Route exact path="/:id" element={<Paveikslas />} />
+        <Route path="/shopping-cart" element={<ShoppingCartPage />} />
+        <Route path="/payments" element={<Payments />} />
+
+
 
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/user" element={<User />} />
