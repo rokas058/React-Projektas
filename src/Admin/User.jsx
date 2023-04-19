@@ -4,13 +4,14 @@ import { useTable } from "react-table";
 import { useNavigate } from "react-router-dom";
 import "../Admin/styles.css";
 import useAuth from "./useAuth";
-import PaginationAdmin from "./PaginationAdmin";
-
+//
+import { Pagination } from 'react-bootstrap';
+//
 
 export default function User() {
   const authModal = useAuth();
   const [data, setData] = useState([]);
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -30,33 +31,72 @@ export default function User() {
       });
   };
 
+  //
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
+  //
+
   const handleDelete = (id) => {
-    const token = localStorage.getItem("accessToken");
-    axios
+  const token = localStorage.getItem("accessToken");
+  axios
     .delete(`http://localhost:8080/admin/user/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then(() => {
-        fetchData();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const handleToggleEnabled = (id) => {
-    const token = localStorage.getItem("accessToken");
-    // Use the correct API endpoint for enabling/disabling users
-    axios
+    .then(() => {
+      fetchData();
+      // If the deleted item is on the last page and there are no items left on that page,
+      // go back to the previous page.
+      const lastPage = Math.ceil(data.length / itemsPerPage);
+      if (currentPage > lastPage) {
+        setCurrentPage(lastPage);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const handleToggleEnabled = (id) => {
+  const token = localStorage.getItem("accessToken");
+  axios
     .put(`http://localhost:8080/admin/user/enable/${id}`, null, {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => {
-        fetchData();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    .then(() => {
+      fetchData();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+
+  // const handleDelete = (id) => {
+  //   const token = localStorage.getItem("accessToken");
+  //   axios
+  //   .delete(`http://localhost:8080/admin/user/${id}`, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   })
+  //     .then(() => {
+  //       fetchData();
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+  // const handleToggleEnabled = (id) => {
+  //   const token = localStorage.getItem("accessToken");
+  //   axios
+  //   .put(`http://localhost:8080/admin/user/enable/${id}`, null, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   })
+  //     .then((response) => {
+  //       fetchData();
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const columns = useMemo(
     () => [
@@ -130,46 +170,65 @@ export default function User() {
   const tableInstance = useTable({ columns, data });
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
-  return (
-    <>
-      <div className="container">
-        {authModal}
-          <div className="row">
-           <div className="col-md-12"></div>
-          </div>
-            <div className="row">
-              <div className="col-md-12"></div>
-                <table {...getTableProps()}>
-                  <thead>
-                    {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                  </th>
-                  ))}
-                  </tr>
-                  ))}
-                  </thead>
-                  <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                      prepareRow(row);
-                      return (
-                        <tr {...row.getRowProps()}>
-                          {row.cells.map((cell) => (
-                            <td {...cell.getCellProps()}>{cell.render("Cell")}
-                            </td>
-                          ))}
-                        </tr>
-                            );
-                          })}
-                    </tbody>
-                </table>
-              </div>
-            </div>
-            <div>
-              <PaginationAdmin/>
-            </div>
-    </>
-  );
+return (
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  <div style={{ margin: '0 10%', display: 'flex', justifyContent: 'center' }}>
+    <table {...getTableProps()} className="table table-striped">
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()} style={{ width: '200px' }}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        ).map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3%' }}>
+    <Pagination>
+      <Pagination.Prev
+        onClick={() => {
+          setCurrentPage((prevPage) => prevPage - 1);
+        }}
+        disabled={currentPage === 1}
+      />
+      {[...Array(Math.ceil(data.length / itemsPerPage)).keys()].map((number) => (
+        <Pagination.Item
+          key={number}
+          active={number + 1 === currentPage}
+          onClick={() => {
+            setCurrentPage(number + 1);
+          }}
+        >
+          {number + 1}
+        </Pagination.Item>
+      ))}
+      <Pagination.Next
+        onClick={() => {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }}
+        disabled={currentPage === Math.ceil(data.length / itemsPerPage)}
+      />
+    </Pagination>
+  </div>
+</div>
+
+);
+
 }
