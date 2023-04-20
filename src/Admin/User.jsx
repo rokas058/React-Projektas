@@ -30,7 +30,8 @@ export default function User() {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+
+  const [itemsPerPage, setItemsPerPage] = useState(25);
 
   const handleDelete = (id) => {
     const token = localStorage.getItem("accessToken");

@@ -71,9 +71,12 @@ export default function Product() {
     [setCurrentPage]
   );
 
-  const productsPerPage = 5;
+  const productsPerPage = 20;
   const offset = (currentPage - 1) * productsPerPage;
-  const paginatedData = useMemo(() => data.slice(offset, offset + productsPerPage), [data, offset, productsPerPage]);
+  const paginatedData = useMemo(
+    () => data.slice(offset, offset + productsPerPage),
+    [data, offset, productsPerPage]
+  );
 
   const columns = useMemo(
     () => [
@@ -125,84 +128,85 @@ export default function Product() {
         Header: "",
         id: "delete",
         Cell: ({ row }) => (
-        <Button variant="danger" onClick={() => handleDelete(row.original.id)}>
-          Ištrinti
-        </Button>
-      ),
-      disableSortBy: true,
-},
-],
-[handleDelete, handleEdit]
-);
-
-const {
-  getTableProps,
-  getTableBodyProps,
-  headerGroups,
-  rows,
-  prepareRow,
-} = useTable({
-  columns,
-  data: paginatedData,
-});
-
-
-return (
-<div>
-  <a href="/admin/product/ProductForm" className="sukurti-mygtukas-produktu">
-    Pridėti
-  </a>
-  {authModal}
-  <div
-    className="table-container"
-    style={{ margin: "0 10%", display: "flex", justifyContent: "center" }}
-  >
-    <div style={{ margin: "0 auto" }}>
-      <table {...getTableProps()} style={{ borderSpacing: '10px' }}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()} style={{ width: "140px" }}>
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div style={{ display: "flex", justifyContent: "center", marginTop: "3%" }}>
-    <Pagination className="pagination">
-      {Array.from({ length: Math.ceil(data.length / productsPerPage) }).map(
-        (_, index) => (
-          <Pagination.Item
-            key={index}
-            active={index + 1 === currentPage}
-            onClick={() => handlePageChange(index + 1)}
+          <Button
+            variant="danger"
+            onClick={() => handleDelete(row.original.id)}
           >
-            {index + 1}
-          </Pagination.Item>
-        )
-      )}
-    </Pagination>
-  </div>
-</div>
-);
-}
+            Ištrinti
+          </Button>
+        ),
+        disableSortBy: true,
+      },
+    ],
+    [handleDelete, handleEdit]
+  );
 
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns,
+      data: paginatedData,
+    });
+
+  return (
+    <div>
+      <a
+        href="/admin/product/ProductForm"
+        className="sukurti-mygtukas-produktu"
+      >
+        Pridėti
+      </a>
+      {authModal}
+      <div
+        className="table-container"
+        style={{ margin: "0 10%", display: "flex", justifyContent: "center" }}
+      >
+        <div style={{ margin: "0 auto" }}>
+          <table {...getTableProps()} style={{ borderSpacing: "10px" }}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()} style={{ width: "140px" }}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "3%" }}
+      >
+        <Pagination className="pagination">
+          {Array.from({ length: Math.ceil(data.length / productsPerPage) }).map(
+            (_, index) => (
+              <Pagination.Item
+                key={index}
+                active={index + 1 === currentPage}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            )
+          )}
+        </Pagination>
+      </div>
+    </div>
+  );
+}
