@@ -1,75 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import PaginationBar from '../components/PaginationBar';
-import Card from '../components/Card';
-import paveikslaiCover from '../pages/images/skulpturos-cover.jpg';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import CategoryPage from './CategoryPage';
+import skulpturosCover from './images/skulpturos-cover.jpg';
 
 const Skulpturos = () => {
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(4);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await axios.get('http://localhost:8080/skulpturos');
-      setProducts(res.data);
-    };
-    fetchProducts();
-  }, []);
-
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const columns = getColumns();
-
-  function getColumns() {
-    const width = window.innerWidth;
-    if (width > 1200) return 4;
-    if (width > 992) return 3;
-    if (width > 768) return 2;
-    return 1;
-  }
-
   return (
-    <>
-      <div className="cover">
-        <img src={paveikslaiCover} alt="Skulptūros" />
-        <h1>Skulptūros</h1>
-      </div>
-
-      <div className="container">
-        <div className="row">
-          {currentProducts.map((product) => (
-            <div key={product.id} className={`card-container col-md-${12 / columns}`}>
-              <Link to={`/${product.id}`} className="link">
-                <Card
-                  pavadinimas={product.pavadinimas}
-                  photo={product.photo}
-                  kategorija={product.kategorija}
-                  ismatavimai={product.ismatavimai}
-                  kurejas={product.kurejas}
-                  kaina={product.kaina}
-                  aprasymas={product.aprasymas}
-                />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {products.length > productsPerPage && (
-        <PaginationBar
-          productsPerPage={productsPerPage}
-          totalProducts={products.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-      )}
-    </>
+    <CategoryPage
+      category="Skulptūros"
+      coverImage={skulpturosCover}
+      apiUrl="http://localhost:8080/skulpturos"
+    />
   );
 };
 
