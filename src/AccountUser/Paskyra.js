@@ -29,7 +29,6 @@ function Paskyra() {
 
       const data = await response.json();
       setUserInfo(data);
-      console.log("User data:", data);
     } catch (error) {
       console.error("Error fetching user data:", error.message);
     }
