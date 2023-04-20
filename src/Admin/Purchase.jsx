@@ -16,7 +16,6 @@ const Purchase = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
-      console.log("Received data:", data);
       setPurchases(data);
     } catch (error) {
       console.error("Error fetching data:", error);
