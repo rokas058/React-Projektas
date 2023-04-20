@@ -38,7 +38,6 @@ function PasswordChange() {
 
       alert("Slaptažodis sėkmingai pakeistas");
     } catch (error) {
-      
       alert("Blogai įvestas dabartinis slaptažodis:");
     }
   };
@@ -46,19 +45,25 @@ function PasswordChange() {
     navigate("/paskyra");
   };
   useEffect(() => {
-    // Set grey background color on the body element when the component mounts
     document.body.style.backgroundColor = "rgb(246, 246, 246)";
 
-    // Revert the background color when the component is unmounted
     return () => {
       document.body.style.backgroundColor = "";
     };
   }, []);
+
   return (
-    <div className="container mt-3">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      className="mt-3"
+    >
       <h1>Slaptažodžio keitimas</h1>
       <br />
-      <form action="/action_page.php" onSubmit={handleChangePassword}>
+      <form
+        action="/action_page.php"
+        onSubmit={handleChangePassword}
+        style={{ width: "100%", maxWidth: "400px" }}
+      >
         <div className="form-floating mb-3 mt-3">
           <input
             type="password"
@@ -126,5 +131,4 @@ function PasswordChange() {
     </div>
   );
 }
-
 export default PasswordChange;
