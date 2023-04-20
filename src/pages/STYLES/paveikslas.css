@@ -14,36 +14,37 @@ body {
 
 .paveikslas-image {
   flex: 1;
-  margin-right: 2rem;
+  margin-right: 2rem
+  
 }
 
 .paveikslas-image img {
-  width: 100%;
-  max-height: 70vh;
-  object-fit: contain;
+  width: 1000px;
+  height: 700px;
+  object-fit: fill;
   margin-bottom: 1rem;
 }
 
 .paveikslas-details {
   flex: 1;
-  display: flex; /* Add this property */
-  flex-direction: column; /* Add this property */
+  display: flex;
+  flex-direction: column;
 }
 
 .paveikslas-container h2 {
   text-transform: uppercase;
   text-align: left;
   margin-bottom: 1rem;
-  font-size: 2rem; /* Increase the font size */
+  font-size: 75px;
   font-weight: bold;
-  font-family: "Dancing Script", cursive; /* Add a custom font */
 }
 
 .paveikslas-info-container {
   background-color: #e0e0e0;
   padding: 1rem;
   border-radius: 5px;
-  flex: 1; /* Add this property */
+  flex: 1;
+  padding: 30px;
 }
 
 .paveikslas-container .paveikslas-info {
@@ -56,7 +57,7 @@ body {
 
 .paveikslas-info p {
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 24px;
 }
 
 .cart-button {
@@ -70,6 +71,9 @@ body {
   color: #fff;
   font-size: 1rem;
   transition: background-color 0.2s ease;
+  height: 80px;
+  margin-top: 200px;
+  font-size: x-large;
 }
 
 .cart-button:hover {

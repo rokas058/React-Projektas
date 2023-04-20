@@ -38,7 +38,8 @@ function PasswordChange() {
 
       alert("Slaptažodis sėkmingai pakeistas");
     } catch (error) {
-      console.error("Slaptažodžio keitimo klaida:", error.message);
+      
+      alert("Blogai įvestas dabartinis slaptažodis:");
     }
   };
   const handleBackClick = () => {

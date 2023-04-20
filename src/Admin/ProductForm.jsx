@@ -1,4 +1,3 @@
-// forma skirta tik naujo kurinio ikelimui
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -46,7 +45,6 @@ const ProductForm = ({ product: initialProduct, onSubmit, mode }) => {
     setProduct({ ...product, [name]: value });
   };
 
-  //pridejau sita
   const handleFileChange = (event) => {
     const { name, files } = event.target;
     setProduct({ ...product, [name]: files[0], photoName: files[0].name });

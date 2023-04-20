@@ -20,6 +20,7 @@
     margin-bottom: 20px;
     border: 1px solid #e6e6e6;
     padding: 20px;
+    background-color: #fff;
   }
   
   .cart-item-image {
@@ -42,6 +43,8 @@
     border: 1px solid #e6e6e6;
     padding: 20px;
     text-align: right;
+    background-color: #fff;
+    margin-bottom: 50px;
   }
   
   .checkout-button {
