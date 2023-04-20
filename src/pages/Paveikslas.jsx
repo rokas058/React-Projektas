@@ -36,9 +36,11 @@ const Paveikslas = () => {
         <div className="paveikslas-info-container">
           <h2>{paveikslas.pavadinimas}</h2>
           <div className="paveikslas-info">
+
             <p>Kūrėjas: {paveikslas.kurejas}</p>
             <p>Išmatavimai: {paveikslas.ismatavimai}</p>
             <p>Kaina: {paveikslas.kaina} €</p>
+
           </div>
           <button className="cart-button" onClick={handleAddToCart}>
             <FontAwesomeIcon icon={faShoppingCart} /> Pridėti į krepšelį

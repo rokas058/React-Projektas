@@ -5,7 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 After start project import:
-npm install react-router-dom --save
+
+## Need install npm files
 
 In the project directory, you can run:
 

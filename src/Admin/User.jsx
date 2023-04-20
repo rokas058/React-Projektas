@@ -4,9 +4,7 @@ import { useTable } from "react-table";
 import { useNavigate } from "react-router-dom";
 import "../Admin/styles.css";
 import useAuth from "./useAuth";
-//
 import { Pagination } from "react-bootstrap";
-//
 
 export default function User() {
   const authModal = useAuth();
@@ -31,10 +29,9 @@ export default function User() {
       });
   };
 
-  //
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
-  //
+
+  const [itemsPerPage, setItemsPerPage] = useState(25);
 
   const handleDelete = (id) => {
     const token = localStorage.getItem("accessToken");
@@ -44,8 +41,6 @@ export default function User() {
       })
       .then(() => {
         fetchData();
-        // If the deleted item is on the last page and there are no items left on that page,
-        // go back to the previous page.
         const lastPage = Math.ceil(data.length / itemsPerPage);
         if (currentPage > lastPage) {
           setCurrentPage(lastPage);
@@ -69,33 +64,6 @@ export default function User() {
         console.log(error);
       });
   };
-
-  // const handleDelete = (id) => {
-  //   const token = localStorage.getItem("accessToken");
-  //   axios
-  //   .delete(`http://localhost:8080/admin/user/${id}`, {
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   })
-  //     .then(() => {
-  //       fetchData();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-  // const handleToggleEnabled = (id) => {
-  //   const token = localStorage.getItem("accessToken");
-  //   axios
-  //   .put(`http://localhost:8080/admin/user/enable/${id}`, null, {
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   })
-  //     .then((response) => {
-  //       fetchData();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   const columns = useMemo(
     () => [

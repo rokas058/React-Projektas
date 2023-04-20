@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Modal, Form, Button, Alert } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import './LoginModal.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Modal, Form, Button, Alert } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import "./LoginModal.css";
 
 function LoginModal(props) {
   const navigate = useNavigate();
   const [showRegister, setShowRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
 
   const handleSwitchForm = () => {
@@ -33,54 +33,52 @@ function LoginModal(props) {
 
   const handleLogin = async (e) => {
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
       console.log(data);
       if (response.status === 200) {
         props.onLogin(data.accessToken);
         setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: ''
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
         });
         props.onHide();
-        navigate('/');
+        navigate("/");
       } else {
-        alert(data.message);
+        alert("Prisijungti nepavyko");
       }
     } catch (error) {
       console.error(error);
     }
   };
-  
-  
 
   const handleRegister = async (e) => {
     try {
-      setMessage('Check your email for confirmation.');
+      setMessage("Check your email for confirmation.");
       setShowMessage(true);
       setTimeout(() => {
         handleSwitchForm();
         setShowMessage(false);
       }, 3000);
-  
-      const response = await fetch('http://localhost:8080/registration', {
-        method: 'POST',
+
+      const response = await fetch("http://localhost:8080/registration", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
       console.log(data);
-  
+
       if (!response.ok) {
         alert(data.message);
       }
@@ -88,7 +86,6 @@ function LoginModal(props) {
       console.error(error);
     }
   };
-  
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
@@ -97,7 +94,7 @@ function LoginModal(props) {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
@@ -109,7 +106,7 @@ function LoginModal(props) {
       keyboard={false}
     >
       <Modal.Header closeButton>
-        <Modal.Title>{showRegister ? 'Register' : 'Log In'}</Modal.Title>
+        <Modal.Title>{showRegister ? "Register" : "Log In"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!showMessage ? (
@@ -147,7 +144,7 @@ function LoginModal(props) {
               <Form.Label>Password</Form.Label>
               <div className="password-container">
                 <Form.Control
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   required
                   onChange={handleChange}
@@ -165,11 +162,11 @@ function LoginModal(props) {
               </div>
             </Form.Group>
             <Button variant="primary" type="submit">
-              {showRegister ? 'Register' : 'Log In'}
+              {showRegister ? "Register" : "Log In"}
             </Button>
             {showRegister ? (
               <p className="switch-form-text">
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <button
                   type="button"
                   className="switch-form-btn"
@@ -180,7 +177,7 @@ function LoginModal(props) {
               </p>
             ) : (
               <p className="switch-form-text">
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <button
                   type="button"
                   className="switch-form-btn"
@@ -200,4 +197,3 @@ function LoginModal(props) {
 }
 
 export default LoginModal;
-               
