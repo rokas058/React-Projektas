@@ -1,12 +1,50 @@
 
-.page-footer{
-  margin: 0;
+/* .page-footer{
+  color: white;
+  background-color: grey; */
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* left: 0;
+  right: 0;
+  height: 50px;
+  padding: 30px;
+  text-align: center;   */
+/* } */
+
+/* .page-footer {
+  position: fixed;
+  bottom: 0;
+  background-color: green;
+  width: 100vw;
+} */
+
+/* .page-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: gray;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  margin-top: 25%;
+} */
+
+.page-footer {
   color: white;
   background-color: grey;
-  padding: 30px;
-  object-position: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 90px;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
+
+/* .page-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: gray;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  z-index: 999;
+} */
