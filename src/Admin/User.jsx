@@ -44,6 +44,7 @@ export default function User() {
         const lastPage = Math.ceil(data.length / itemsPerPage);
         if (currentPage > lastPage) {
           setCurrentPage(lastPage);
+          window.location.reload();
         }
       })
       .catch((error) => {
