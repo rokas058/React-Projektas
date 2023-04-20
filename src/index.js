@@ -26,18 +26,21 @@ const shoppingCartReducer = (state, action) => {
 const AppWrapper = () => {
   const [state, dispatch] = useReducer(shoppingCartReducer, initialState);
 
-  const addToCart = (item) => {
-    dispatch({ type: 'ADD_ITEM', payload: item });
-  };
-
   return (
-    <ShoppingCartContext.Provider value={{ ...state, addToCart }}>
+    <ShoppingCartContext.Provider
+      value={{
+        ...state,
+        addToCart: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
+        removeFromCart: (id) => dispatch({ type: 'REMOVE_ITEM', payload: id }),
+      }}
+    >
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ShoppingCartContext.Provider>
   );
 };
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

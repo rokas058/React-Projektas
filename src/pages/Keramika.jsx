@@ -1,29 +1,75 @@
-import React, { useEffect } from 'react';
-import paveikslaiCover from '../pages/images/keramika-cover.jpg';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import PaginationBar from '../components/PaginationBar';
+import Card from '../components/Card';
+import keramikaCover from '../pages/images/keramika-cover.jpg';
+import { Link } from 'react-router-dom';
 
-function checkAccessTokenDeletion() {
-  const accessTokenKey = 'accessToken'; // Replace this with the key you use to store the access token
+const Keramika = () => {
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(4);
 
-  const accessToken = localStorage.getItem(accessTokenKey);
-
-  if (accessToken === null) {
-    console.log('Access token has been deleted from the browser.');
-  } else {
-    console.log('Access token is still present in the browser.');
-  }
-}
-
-function Keramika() {
   useEffect(() => {
-    checkAccessTokenDeletion();
+    const fetchProducts = async () => {
+      const res = await axios.get('http://localhost:8080/keramika');
+      setProducts(res.data);
+    };
+    fetchProducts();
   }, []);
 
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const columns = getColumns();
+
+  function getColumns() {
+    const width = window.innerWidth;
+    if (width > 1200) return 4;
+    if (width > 992) return 3;
+    if (width > 768) return 2;
+    return 1;
+  }
+
   return (
-    <div className="cover">
-      <img src={paveikslaiCover} alt="Paveikslai" />
-      <h1>Keramika</h1>
-    </div>
+    <>
+      <div className="cover">
+        <img src={keramikaCover} alt="Keramika" />
+        <h1>Keramika</h1>
+      </div>
+
+      <div className="container">
+        <div className="row">
+          {currentProducts.map((product) => (
+            <div key={product.id} className={`card-container col-md-${12 / columns}`}>
+              <Link to={`/${product.id}`} className="link">
+                <Card
+                  pavadinimas={product.pavadinimas}
+                  photo={product.photo}
+                  kategorija={product.kategorija}
+                  ismatavimai={product.ismatavimai}
+                  kurejas={product.kurejas}
+                  kaina={product.kaina}
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {products.length > productsPerPage && (
+        <PaginationBar
+          productsPerPage={productsPerPage}
+          totalProducts={products.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      )}
+    </>
   );
-}
+};
 
 export default Keramika;

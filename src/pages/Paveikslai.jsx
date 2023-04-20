@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const Paveikslai = () => {
   const [paveikslai, setPaveikslai] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paveikslaiPerPage] = useState(6);
+  const [paveikslaiPerPage] = useState(4);
 
   useEffect(() => {
     const fetchPaveikslai = async () => {
@@ -59,7 +59,6 @@ const Paveikslai = () => {
           </div>
         ))}
       </div>
-
       {paveikslai.length > paveikslaiPerPage && (
         <PaginationBar
           paveikslaiPerPage={paveikslaiPerPage}

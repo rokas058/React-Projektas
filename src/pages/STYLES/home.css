@@ -2,7 +2,6 @@
     position: relative;
     width: 100%;
     height: 500px;
-    margin-bottom: 25%;
   }
   
   .home img {
@@ -44,7 +43,7 @@
   .home__buttons button {
     padding: 10px 20px;
     border: none;
-    background-color: transparent;
+    background-color: white;
     color: #333;
     font-size: 1.1rem;
     letter-spacing: 1px;
@@ -56,4 +55,5 @@
     color: #fff;
     border-radius: 8px;
   }
+
  
