@@ -4,8 +4,8 @@ import { ShoppingCartContext } from "../components/ShoppingCartContext";
 import "./STYLES/shoppingCartPage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
-import axios from "axios"; 
-
+import axios from "axios";
+import { Modal } from 'react-bootstrap';
 
 const ShoppingCartPage = () => {
 
@@ -15,15 +15,24 @@ const ShoppingCartPage = () => {
         removeFromCart(id);
       };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
+
       
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(null);
       
     const handleCheckout = async () => {
+      if (cartItems.length === 0) {
+        setIsModalOpen(true);
+      } else {
         try {
           const accessToken = localStorage.getItem('accessToken');
           const items = cartItems.map(item => ({ id: item.id }));
-      
+    
           const response = await axios.post(
             'http://localhost:8080/purchase',
             { products: items },
@@ -41,7 +50,8 @@ const ShoppingCartPage = () => {
           console.error(error);
           setErrorMessage("Something went wrong, please try again.");
         }
-      };
+      }
+    };
             
 
   return (
@@ -88,6 +98,21 @@ const ShoppingCartPage = () => {
         <button className="checkout-button" onClick={handleCheckout}>
              Proceed to Checkout
         </button>
+        <Modal
+          show={isModalOpen}
+          onHide={closeModal}
+          backdrop="static"
+          keyboard={false}
+          centered
+          dialogClassName="custom-dialog"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Your cart is empty</Modal.Title>
+          </Modal.Header>
+        </Modal>
+
+
+
       </div>
     </div>
   );

@@ -3,14 +3,14 @@ import { Pagination } from "react-bootstrap";
 import "./PaginationBar.css";
 
 const PaginationBar = ({
-  paveikslaiPerPage,
-  totalPaveikslai,
+  productsPerPage, // Updated prop name
+  totalProducts, // Updated prop name
   paginate,
   currentPage,
 }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPaveikslai / paveikslaiPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -31,9 +31,7 @@ const PaginationBar = ({
           </Pagination.Item>
         ))}
         <Pagination.Next
-          disabled={
-            currentPage === Math.ceil(totalPaveikslai / paveikslaiPerPage)
-          }
+          disabled={currentPage === Math.ceil(totalProducts / productsPerPage)}
           onClick={() => paginate(currentPage + 1)}
         />
       </Pagination>
