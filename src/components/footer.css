@@ -30,11 +30,14 @@
 } */
 
 .page-footer {
-  color: white;
-  background-color: grey;
+  color: lightslategrey;
+  background-color: lightgray;
   position: fixed;
   bottom: 0;
   width: 100vw;
+  text-align: center;
+  height: 60px;
+  padding: 15px;
 }
 
 /* .page-footer {
