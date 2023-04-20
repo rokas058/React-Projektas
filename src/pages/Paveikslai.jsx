@@ -59,7 +59,6 @@ const Paveikslai = () => {
           </div>
         ))}
       </div>
-
       {paveikslai.length > paveikslaiPerPage && (
         <PaginationBar
           paveikslaiPerPage={paveikslaiPerPage}
