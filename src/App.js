@@ -64,7 +64,7 @@ function App() {
         <Route path="/paskyra" element={<Paskyra />} />
         <Route path="/password-change" element={<PasswordChange />} />
       </Routes>
-      {/* {!isAdmin && <Footer />} */}
+      {!isAdmin && <Footer />}
     </div>
   );
 }
